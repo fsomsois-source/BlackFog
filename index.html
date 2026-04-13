@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operation Black Fog — College Camille See</title>
+<style>
+/* ═══ RESET ═══ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{background:#070707;}body{background:#070707;margin:0;padding:0;}
+
+/* ═══ SECTION CONTROL ═══ */
+.app-section{display:none;}
+.app-section.visible{display:block;}
+
+/* ═══ NARRATIVE CSS ═══ */
+
+:root{--blood:#7a1515;--gold:#b8922a;--parch:#f0e6cc;--aged:#c0aa80;--ink:#0e0a04;--dark:#070707;--fog:#6a7c7a;--white:#f8f4ec;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--dark);}
+body{background:var(--dark);font-family:Georgia,'Times New Roman',serif;color:var(--white);min-height:100vh;}
+#intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2rem;background:radial-gradient(ellipse at 50% 35%,#1c0e08 0%,#070707 65%);transition:opacity .9s ease;}
+#intro.out{opacity:0;pointer-events:none;}
+.i-school{font-family:'Trebuchet MS',Arial,sans-serif;font-size:clamp(.52rem,1.4vw,.68rem);letter-spacing:.55em;color:var(--gold);text-transform:uppercase;text-align:center;}
+.i-rule{width:80px;height:1px;background:var(--blood);opacity:.6;}
+.i-title{font-size:clamp(2.4rem,9vw,6rem);font-weight:700;font-style:italic;color:var(--white);text-align:center;line-height:.92;text-shadow:2px 2px 0 #000;}
+.i-title span{color:var(--blood);display:block;animation:breathe 3s ease-in-out infinite;}
+@keyframes breathe{0%,100%{text-shadow:0 0 30px rgba(122,21,21,.5);}50%{text-shadow:0 0 70px rgba(122,21,21,.9),0 0 120px rgba(122,21,21,.3);}}
+.i-date{font-style:italic;font-size:clamp(.9rem,2.5vw,1.15rem);color:var(--aged);text-align:center;}
+.i-sub{font-family:'Trebuchet MS',Arial,sans-serif;font-size:clamp(.55rem,1.6vw,.72rem);letter-spacing:.45em;color:var(--fog);text-transform:uppercase;text-align:center;}
+.i-btn{border:1px solid var(--blood);background:none;color:var(--white);font-family:Georgia,serif;font-size:clamp(.72rem,2vw,.88rem);letter-spacing:.3em;text-transform:uppercase;padding:.8rem 2.4rem;cursor:pointer;transition:all .3s;margin-top:.6rem;animation:pb 2.5s ease-in-out infinite;}
+@keyframes pb{0%,100%{box-shadow:0 0 0 0 rgba(122,21,21,0);}50%{box-shadow:0 0 22px 4px rgba(122,21,21,.35);}}
+.i-btn:hover{background:var(--blood);}
+#story{display:none;flex-direction:column;min-height:100vh;}
+#story.active{display:flex;}
+.strip{position:sticky;top:0;z-index:200;background:rgba(7,7,7,.98);border-bottom:2px solid var(--blood);padding:.45rem .9rem;display:flex;align-items:center;justify-content:space-between;gap:.4rem;flex-wrap:wrap;}
+.strip-title{font-family:'Trebuchet MS',Arial,sans-serif;font-size:.52rem;letter-spacing:.4em;color:#2a2a2a;text-transform:uppercase;}
+.strip-right{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.sbtn{background:none;border:1px solid #1e1e1e;color:var(--fog);font-family:'Trebuchet MS',Arial,sans-serif;font-size:.52rem;letter-spacing:.12em;padding:.22rem .55rem;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+.sbtn:hover{border-color:var(--blood);color:var(--white);}
+.sbtn.on{background:var(--blood);border-color:var(--blood);color:#fff;}
+.svs{font-family:'Trebuchet MS',Arial,sans-serif;font-size:.5rem;letter-spacing:.15em;color:#2a2a2a;}
+.pbar{height:3px;background:#111;}
+.pfill{height:100%;background:linear-gradient(90deg,var(--blood),var(--gold));transition:width .5s ease;}
+.page{flex:1;max-width:720px;width:100%;margin:0 auto;padding:.8rem .8rem 6rem;animation:pageIn .5s ease both;}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.ch-header{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;margin-bottom:.7rem;}
+.ch-num{font-size:clamp(2.5rem,8vw,4rem);font-weight:700;color:var(--blood);line-height:1;opacity:.2;font-style:italic;}
+.ch-meta{border-left:3px solid var(--blood);padding-left:.6rem;}
+.ch-time{font-size:clamp(1.2rem,4vw,1.8rem);font-weight:700;color:var(--blood);line-height:1;}
+.ch-loc{font-family:'Trebuchet MS',Arial,sans-serif;font-size:clamp(.5rem,1.3vw,.62rem);letter-spacing:.3em;color:var(--fog);text-transform:uppercase;margin-top:.15rem;}
+.illus-wrap{position:relative;overflow:hidden;background:#000;margin-bottom:.7rem;border:1px solid #1a1a1a;}
+.illus-wrap svg{display:block;width:100%;}
+.illus-caption{background:var(--blood);padding:.25rem .7rem;display:flex;align-items:center;justify-content:space-between;}
+.ic-title{font-size:clamp(.75rem,2.5vw,.95rem);font-weight:700;font-style:italic;color:#fff;letter-spacing:.03em;}
+.ic-num{font-family:'Trebuchet MS',Arial,sans-serif;font-size:.5rem;letter-spacing:.3em;color:rgba(255,255,255,.5);text-transform:uppercase;}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.7rem;}
+.panel{background:var(--parch);color:var(--ink);padding:.85rem;position:relative;}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.panel.en::before{background:var(--ink);}
+.panel.fr::before{background:var(--blood);}
+.panel-flag{font-family:'Trebuchet MS',Arial,sans-serif;font-size:.48rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem;}
+.panel.en .panel-flag{color:#555;}
+.panel.fr .panel-flag{color:var(--blood);}
+.panel-text{font-size:clamp(.74rem,1.9vw,.86rem);line-height:1.82;color:var(--ink);}
+.panel.fr .panel-text{font-style:italic;color:#555;}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(7,7,7,.98);border-top:2px solid var(--blood);padding:.6rem .9rem;display:none;align-items:center;justify-content:space-between;gap:.5rem;z-index:200;}
+.bnav.active{display:flex;}
+.nbtn{background:none;border:1px solid #222;color:var(--fog);font-family:'Trebuchet MS',Arial,sans-serif;font-size:.65rem;letter-spacing:.15em;padding:.42rem .9rem;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+.nbtn:hover{border-color:var(--fog);color:var(--white);}
+.nbtn:disabled{opacity:.2;cursor:not-allowed;}
+.nbtn.primary{background:var(--blood);border-color:var(--blood);color:#fff;}
+.nbtn.primary:hover{box-shadow:0 0 18px rgba(122,21,21,.5);}
+.nav-mid{display:flex;flex-direction:column;align-items:center;gap:.3rem;}
+.dots{display:flex;gap:.32rem;}
+.dot{width:7px;height:7px;border-radius:50%;border:1px solid #333;background:#0d0d0d;cursor:pointer;transition:all .3s;}
+.dot.cur{background:var(--blood);border-color:var(--blood);box-shadow:0 0 5px rgba(122,21,21,.6);}
+.dot.done{background:#1e1e1e;border-color:#2a2a2a;}
+.nav-ctr{display:none;}
+#end{display:none;position:fixed;inset:0;z-index:300;background:rgba(7,7,7,.97);flex-direction:column;align-items:center;justify-content:center;gap:1.3rem;padding:2rem;text-align:center;}
+#end.active{display:flex;animation:fi .8s ease both;}
+@keyframes fi{from{opacity:0;}to{opacity:1;}}
+.end-title{font-size:clamp(1.9rem,8vw,4.5rem);font-weight:700;font-style:italic;color:var(--blood);text-shadow:0 0 60px rgba(122,21,21,.5);line-height:1;}
+.end-sub{font-family:'Trebuchet MS',Arial,sans-serif;font-size:clamp(.58rem,1.8vw,.75rem);letter-spacing:.5em;color:var(--fog);text-transform:uppercase;}
+.end-quote{font-style:italic;font-size:clamp(.82rem,2.4vw,1.05rem);color:var(--aged);max-width:440px;line-height:1.82;}
+.end-stamp{border:3px solid var(--blood);color:var(--blood);font-family:'Trebuchet MS',Arial,sans-serif;font-size:clamp(.9rem,3vw,1.3rem);font-weight:700;letter-spacing:.3em;text-transform:uppercase;padding:.4rem 1.2rem;transform:rotate(-3deg);opacity:.8;}
+.rbtn{background:none;border:1px solid var(--blood);color:var(--white);font-family:'Trebuchet MS',Arial,sans-serif;font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;padding:.65rem 1.8rem;cursor:pointer;transition:all .3s;margin-top:.5rem;}
+.rbtn:hover{background:var(--blood);}
+#rain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.08;}
+@media(max-width:520px){.panels{grid-template-columns:1fr;}}
+
+
+/* ═══ GAME CSS ═══ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IM+Fell+English:ital@0;1&family=Oswald:wght@300;400;600&display=swap');
+
+:root {
+  --ink:#120e08; --parch:#f2e8d0; --aged:#c8b88a; --blood:#7a1515;
+  --gold:#b8922a; --fog:#7a8c8a; --dark:#090909; --char:#1c1c1c;
+  --slate:#2e2e2e; --ok:#2d6e4e;
+  --g1:#e05252; --g2:#e0943a; --g3:#c8b820; --g4:#52b86e; --g5:#4a90d9; --g6:#9b6de0;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);font-family:'IM Fell English',Georgia,serif;color:var(--parch);min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;opacity:.4;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+.screen{display:none;position:relative;z-index:1;}
+.screen.active{display:block;}
+
+/* ── LANG BAR ── */
+.topbar{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:.4rem .9rem;z-index:300;background:rgba(9,9,9,.97);border-bottom:1px solid #1a1a1a;}
+.lang-pill{display:flex;border:1px solid var(--gold);overflow:hidden;}
+.lang-pill button{background:none;border:none;font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.15em;padding:.25rem .7rem;color:var(--aged);cursor:pointer;transition:all .2s;}
+.lang-pill button.AL{background:var(--gold);color:var(--dark);}
+.coord-link{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.2em;color:#333;cursor:pointer;text-transform:uppercase;border:none;background:none;transition:color .2s;}
+.coord-link:hover{color:var(--fog);}
+
+/* ── INTRO ── */
+#intro{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 1.2rem 2.5rem;background:radial-gradient(ellipse at 50% 30%,#1a1208 0%,#050505 70%);}
+.school-row{display:flex;align-items:center;gap:.6rem;margin-bottom:1.8rem;}
+.hr-gold{height:1px;width:36px;background:var(--gold);opacity:.4;}
+.school-lbl{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;}
+.eyebrow{font-family:'Oswald',sans-serif;font-size:.56rem;letter-spacing:.5em;color:var(--fog);border:1px solid #1e1e1e;padding:.22rem .9rem;margin-bottom:1.3rem;text-transform:uppercase;}
+.main-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.6rem,9vw,5.8rem);color:var(--parch);text-align:center;line-height:.92;letter-spacing:-.02em;margin-bottom:.35rem;}
+.main-title em{font-style:italic;color:var(--blood);display:block;animation:glow 3s ease-in-out infinite;}
+@keyframes glow{0%,100%{text-shadow:0 0 40px rgba(122,21,21,.5);}50%{text-shadow:0 0 70px rgba(122,21,21,.9),0 0 110px rgba(122,21,21,.3);}}
+.sub{font-family:'Oswald',sans-serif;font-weight:300;font-size:clamp(.7rem,2.5vw,.92rem);letter-spacing:.4em;color:var(--fog);text-align:center;margin-bottom:2rem;text-transform:uppercase;}
+
+.info-box{max-width:540px;width:100%;background:var(--char);border:1px solid #222;padding:1rem 1.2rem;margin-bottom:1.6rem;display:flex;gap:.9rem;align-items:flex-start;}
+.info-icon{font-size:1.8rem;flex-shrink:0;}
+.info-txt{font-size:.76rem;line-height:1.7;color:var(--aged);}
+.info-txt strong{color:var(--gold);}
+
+.dossier{background:var(--parch);color:var(--ink);max-width:540px;width:100%;padding:1.6rem 1.5rem;border:1px solid var(--aged);box-shadow:0 20px 60px rgba(0,0,0,.8);position:relative;margin-bottom:1.6rem;transform:rotate(-.3deg);}
+.dossier::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:repeating-linear-gradient(90deg,var(--blood) 0,var(--blood) 60%,transparent 60%,transparent 100%);background-size:8px 5px;}
+.dstamp{position:absolute;top:1rem;right:1rem;font-family:'Oswald',sans-serif;font-weight:600;font-size:1rem;color:var(--blood);border:3px solid var(--blood);padding:.18rem .5rem;transform:rotate(7deg);opacity:.75;letter-spacing:.1em;}
+.dref{font-family:'Oswald',sans-serif;font-size:.56rem;letter-spacing:.3em;color:var(--fog);margin-bottom:.6rem;text-transform:uppercase;}
+.dossier h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--blood);margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:1px dashed var(--aged);}
+.dossier p{font-size:.79rem;line-height:1.8;margin-bottom:.45rem;}
+
+.glabel{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.4em;color:var(--fog);text-align:center;margin-bottom:.8rem;text-transform:uppercase;}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;max-width:460px;width:100%;margin-bottom:1.3rem;}
+.gbtn{background:transparent;border:1px solid #252525;color:#555;font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.08em;padding:.8rem .4rem;cursor:pointer;transition:all .25s;text-transform:uppercase;line-height:1.4;}
+.gbtn small{display:block;font-size:.55rem;margin-top:.1rem;opacity:.7;}
+.gbtn:hover{border-color:var(--gold);color:var(--gold);}
+.gbtn.sel{color:#fff !important;border-color:transparent !important;}
+.gbtn[data-g="1"].sel{background:var(--g1);}
+.gbtn[data-g="2"].sel{background:var(--g2);color:var(--dark) !important;}
+.gbtn[data-g="3"].sel{background:var(--g3);color:var(--dark) !important;}
+.gbtn[data-g="4"].sel{background:var(--g4);}
+.gbtn[data-g="5"].sel{background:var(--g5);}
+.gbtn[data-g="6"].sel{background:var(--g6);}
+
+.cta{background:var(--blood);border:none;color:#fff;font-family:'Oswald',sans-serif;font-weight:600;font-size:.86rem;letter-spacing:.3em;text-transform:uppercase;padding:.85rem 2.5rem;cursor:pointer;transition:all .3s;box-shadow:0 0 20px rgba(122,21,21,.35);display:none;}
+.cta:hover{box-shadow:0 0 45px rgba(122,21,21,.75);transform:scale(1.02);}
+
+/* ── MISSION ── */
+#mission{min-height:100vh;padding:3.5rem 1.1rem 2rem;}
+.hud{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(9,9,9,.97);border-bottom:1px solid #1a1a1a;padding:.5rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.hud-g{font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;}
+.hud-p{font-family:'Oswald',sans-serif;font-size:.6rem;color:var(--fog);white-space:nowrap;}
+.hud-t{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--blood);letter-spacing:.04em;white-space:nowrap;}
+.pstrip{position:fixed;top:33px;left:0;right:0;height:3px;background:#111;z-index:199;}
+.pfill{height:100%;background:linear-gradient(90deg,var(--blood),var(--gold));transition:width .6s ease;box-shadow:0 0 8px rgba(184,146,42,.5);}
+
+/* Step nav */
+.snav{display:flex;gap:.35rem;overflow-x:auto;margin-bottom:1rem;padding-bottom:.1rem;scrollbar-width:none;}
+.snav::-webkit-scrollbar{display:none;}
+.stab{flex-shrink:0;background:none;border:1px solid #222;color:#444;font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;padding:.35rem .7rem;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap;}
+.stab.cur{border-color:var(--gold);color:var(--gold);}
+.stab.done{border-color:var(--ok);color:var(--ok);}
+.tbody{display:none;}.tbody.cur{display:block;}
+
+/* Return banner */
+.ret-banner{background:#0a140c;border:2px dashed var(--ok);padding:1rem 1.1rem;text-align:center;margin-bottom:1rem;}
+.ret-banner p{font-size:.8rem;line-height:1.7;color:#6ab88a;margin-bottom:.5rem;}
+.ret-banner strong{color:var(--ok);}
+
+/* Clue card */
+.ccard{background:var(--parch);color:var(--ink);border-top:4px solid var(--blood);padding:1.3rem;margin-bottom:.9rem;box-shadow:0 6px 30px rgba(0,0,0,.6);position:relative;}
+.ccard.solved{border-top-color:var(--ok);opacity:.72;}
+.cstep{font-family:'Oswald',sans-serif;font-size:.5rem;letter-spacing:.4em;color:var(--blood);text-transform:uppercase;margin-bottom:.2rem;}
+.cloc{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.1em;color:var(--fog);text-transform:uppercase;margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:1px solid var(--aged);line-height:1.5;}
+.cloc .lsub{font-style:italic;display:block;font-size:.56rem;color:#999;margin-top:.1rem;}
+.ctitle{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--blood);margin-bottom:.2rem;}
+.ctitle-en{font-family:'IM Fell English',serif;font-style:italic;font-size:.78rem;color:var(--fog);margin-bottom:.8rem;}
+.sbadge{position:absolute;top:.55rem;right:.8rem;font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.2em;color:var(--ok);}
+
+/* Bilingual ctx */
+.biblock{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.8rem;border:1px dashed var(--aged);padding:.65rem;}
+.bicol{font-size:.76rem;line-height:1.7;}
+.biflag{font-family:'Oswald',sans-serif;font-size:.56rem;letter-spacing:.2em;color:var(--fog);margin-bottom:.2rem;}
+.bicol.fr{border-right:1px dashed var(--aged);padding-right:.6rem;}
+
+/* Vocab */
+.vocab{background:#ede0c4;border-left:3px solid var(--gold);padding:.6rem .8rem;margin-bottom:.8rem;}
+.vtitle{font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.3em;color:var(--gold);margin-bottom:.4rem;text-transform:uppercase;}
+.vgrid{display:flex;flex-wrap:wrap;gap:.3rem;}
+.vchip{background:var(--parch);border:1px solid var(--aged);font-size:.68rem;padding:.1rem .4rem;font-family:'Oswald',sans-serif;}
+.vchip .vf{color:var(--ink);}.vchip .ve{color:var(--blood);font-style:italic;}
+
+/* Activities */
+.activities{margin-bottom:.8rem;}
+.act-title{font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.3em;color:#7a5a1a;text-transform:uppercase;margin-bottom:.4rem;}
+.act-item{background:#f5ead5;border-left:3px solid var(--gold);padding:.55rem .75rem;margin-bottom:.4rem;font-size:.76rem;line-height:1.6;color:var(--ink);}
+.act-item .act-num{font-family:'Oswald',sans-serif;font-size:.58rem;color:var(--gold);letter-spacing:.1em;display:block;margin-bottom:.15rem;}
+
+/* Riddle */
+.riddle{background:#e8d9b8;border:1px solid var(--aged);padding:.85rem;margin-bottom:.8rem;}
+.rlabel{font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.3em;color:var(--blood);margin-bottom:.4rem;text-transform:uppercase;}
+.rbi{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;}
+.rfr{font-size:.77rem;line-height:1.6;color:var(--ink);}
+.ren{font-size:.77rem;line-height:1.6;color:#444;font-style:italic;border-left:1px dashed var(--aged);padding-left:.65rem;}
+
+/* Answer */
+.arow{display:flex;gap:.4rem;margin-top:.65rem;}
+.ainput{flex:1;background:var(--dark);border:1px solid #3a3a3a;color:var(--gold);font-family:'Playfair Display',serif;font-size:.92rem;letter-spacing:.2em;padding:.45rem .7rem;text-transform:uppercase;}
+.ainput:focus{outline:none;border-color:var(--blood);}
+.abtn{background:var(--slate);border:1px solid #555;color:var(--parch);font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.1em;padding:.45rem .85rem;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.abtn:hover{background:var(--blood);border-color:var(--blood);}
+.fb{font-size:.73rem;margin-top:.4rem;padding:.35rem .5rem;font-style:italic;line-height:1.4;}
+.fb.ok{color:var(--ok);background:rgba(45,110,78,.08);border-left:2px solid var(--ok);}
+.fb.ko{color:var(--blood);background:rgba(122,21,21,.08);border-left:2px solid var(--blood);}
+.hintbtn{background:none;border:none;color:var(--fog);font-size:.68rem;font-style:italic;cursor:pointer;text-decoration:underline;margin-top:.25rem;font-family:'IM Fell English',serif;}
+
+/* ── FINALE ── */
+#finale{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:4.5rem 1.2rem 3rem;background:radial-gradient(ellipse at 50% 20%,#150a08 0%,#050505 70%);}
+.ftitle{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:clamp(1.9rem,7vw,3.8rem);color:var(--parch);text-align:center;margin-bottom:.3rem;}
+.fsub{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.35em;color:var(--fog);text-align:center;margin-bottom:1.8rem;text-transform:uppercase;}
+.vcard{background:var(--parch);color:var(--ink);max-width:520px;width:100%;border:2px solid var(--aged);padding:1.5rem;box-shadow:0 20px 60px rgba(0,0,0,.8);margin-bottom:1.3rem;position:relative;}
+.vcard::before{content:'';position:absolute;inset:5px;border:1px solid var(--aged);pointer-events:none;}
+.vh{font-family:'Playfair Display',serif;font-size:1rem;color:var(--blood);text-align:center;margin-bottom:.2rem;}
+.vhen{font-family:'IM Fell English',serif;font-style:italic;font-size:.75rem;color:var(--fog);text-align:center;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px dashed var(--aged);}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem;}
+.sus{border:1px solid var(--aged);padding:.7rem .5rem;cursor:pointer;transition:all .2s;text-align:center;}
+.sus:hover{background:rgba(122,21,21,.06);}
+.sus.pk{background:var(--blood);border-color:var(--blood);color:#fff;}
+.sico{font-size:1.3rem;margin-bottom:.2rem;}
+.sname{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:700;margin-bottom:.1rem;}
+.srole{font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.08em;color:var(--fog);text-transform:uppercase;}
+.ssubt{font-size:.65rem;font-style:italic;color:var(--fog);}
+.sus.pk .srole,.sus.pk .ssubt{color:rgba(255,255,255,.6);}
+.accbtn{width:100%;background:var(--blood);border:none;color:#fff;font-family:'Oswald',sans-serif;font-weight:600;font-size:.85rem;letter-spacing:.28em;padding:.9rem;cursor:pointer;text-transform:uppercase;transition:all .3s;}
+.accbtn:disabled{opacity:.35;cursor:not-allowed;}
+.accbtn:not(:disabled):hover{box-shadow:0 0 35px rgba(122,21,21,.6);}
+.evwrap{max-width:520px;width:100%;margin-bottom:1.2rem;}
+.evtitle{font-family:'Oswald',sans-serif;font-size:.56rem;letter-spacing:.4em;color:var(--fog);text-align:center;border-bottom:1px solid #1e1e1e;padding-bottom:.4rem;margin-bottom:.6rem;text-transform:uppercase;}
+.evlist{display:flex;flex-wrap:wrap;gap:.3rem;}
+.evtag{background:#111;border:1px solid #2a2a2a;color:var(--aged);font-size:.68rem;font-family:'Oswald',sans-serif;letter-spacing:.04em;padding:.2rem .6rem;}
+#reveal{display:none;max-width:520px;width:100%;background:var(--parch);color:var(--ink);border:2px solid var(--blood);padding:1.5rem;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);margin-bottom:1.3rem;}
+@keyframes popIn{from{opacity:0;transform:scale(.93) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+#reveal h3{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:.3rem;}
+#reveal p{font-size:.79rem;line-height:1.8;margin-bottom:.4rem;}
+.rev-ok h3{color:var(--ok);}.rev-ko h3{color:var(--blood);}
+.backbtn{background:none;border:1px solid #2a2a2a;color:var(--fog);font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.2em;padding:.42rem 1rem;cursor:pointer;text-transform:uppercase;transition:all .2s;margin-top:.5rem;}
+.backbtn:hover{border-color:var(--fog);color:var(--parch);}
+
+/* ── COORDINATEUR ── */
+#coord-login{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5rem 1.5rem 2rem;background:radial-gradient(ellipse at 50% 40%,#0a0f1a 0%,#050505 70%);}
+#coord{min-height:100vh;padding:3.8rem 1rem 2rem;background:var(--dark);}
+
+.coord-header{background:#0d0d0d;border-bottom:1px solid #1a1a1a;padding:.5rem 1rem;position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;}
+.coord-title-bar{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;}
+.coord-timer{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--blood);}
+
+.login-box{background:var(--char);border:1px solid #252525;padding:2rem;max-width:360px;width:100%;text-align:center;}
+.login-box h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--blood);margin-bottom:.3rem;}
+.login-box p{font-size:.75rem;color:var(--fog);margin-bottom:1.5rem;font-style:italic;}
+.pwd-input{width:100%;background:var(--dark);border:1px solid #333;color:var(--gold);font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:.3em;padding:.6rem .8rem;text-align:center;margin-bottom:.8rem;}
+.pwd-input:focus{outline:none;border-color:var(--blood);}
+.pwd-btn{width:100%;background:var(--blood);border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:.8rem;letter-spacing:.3em;padding:.7rem;cursor:pointer;text-transform:uppercase;}
+.pwd-err{color:var(--blood);font-size:.72rem;font-style:italic;margin-top:.4rem;display:none;}
+
+/* Dispatch table */
+.dispatch-wrap{max-width:700px;margin:0 auto;}
+.dispatch-title{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;padding-bottom:.4rem;border-bottom:1px solid #222;}
+
+.team-row{background:var(--char);border:1px solid #222;margin-bottom:.6rem;padding:.9rem 1rem;display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;}
+.team-color{width:8px;height:40px;border-radius:2px;flex-shrink:0;}
+.team-info{}
+.team-name{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.15em;color:var(--parch);margin-bottom:.2rem;text-transform:uppercase;}
+.team-status{font-size:.7rem;color:var(--fog);font-style:italic;}
+.team-progress{display:flex;gap:.3rem;align-items:center;}
+.dot{width:10px;height:10px;border-radius:50%;border:1px solid #333;background:#111;transition:all .3s;}
+.dot.done{background:var(--ok);border-color:var(--ok);}
+.dot.cur{background:var(--gold);border-color:var(--gold);animation:pulse .8s ease-in-out infinite alternate;}
+@keyframes pulse{from{box-shadow:0 0 0 0 rgba(184,146,42,.4);}to{box-shadow:0 0 0 4px rgba(184,146,42,0);}}
+
+.next-badge{font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.1em;padding:.25rem .6rem;text-transform:uppercase;white-space:nowrap;}
+.next-badge.go{background:var(--blood);color:#fff;}
+.next-badge.done-all{background:var(--ok);color:#fff;}
+.next-badge.waiting{background:#222;color:var(--fog);}
+
+/* Answer key */
+.key-section{margin-top:1.5rem;max-width:700px;margin-left:auto;margin-right:auto;}
+.key-title{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:.4em;color:var(--fog);text-transform:uppercase;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid #1a1a1a;}
+.key-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.key-card{background:#0f0f0f;border:1px solid #1e1e1e;padding:.8rem;}
+.key-loc{font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.2em;color:var(--fog);text-transform:uppercase;margin-bottom:.3rem;}
+.key-ans{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);}
+.key-note{font-size:.65rem;color:#555;font-style:italic;margin-top:.1rem;}
+
+.coord-note{background:#0a0f0a;border:1px solid #1e2e1e;padding:.8rem 1rem;margin-bottom:1rem;max-width:700px;margin-left:auto;margin-right:auto;font-size:.75rem;color:#6ab88a;line-height:1.6;}
+.coord-note strong{color:var(--ok);}
+
+@media(max-width:500px){
+  .biblock,.rbi{grid-template-columns:1fr;}
+  .bicol.fr{border-right:none;border-bottom:1px dashed var(--aged);padding-right:0;padding-bottom:.5rem;margin-bottom:.3rem;}
+  .ren{border-left:none;border-top:1px dashed var(--aged);padding-left:0;padding-top:.4rem;}
+  .sgrid{grid-template-columns:1fr 1fr;}
+  .key-grid{grid-template-columns:1fr;}
+  .team-row{grid-template-columns:auto 1fr;}.team-progress{grid-column:1/-1;}
+}
+
+
+/* ═══ OVERRIDES ═══ */
+#nav-intro{min-height:100vh;}
+#nav-story{min-height:100vh;}
+.screen{display:none;position:relative;z-index:1;}
+.screen.active{display:block;}
+#topbar{display:none;}
+#nav-bnav{display:none;}
+#nav-bnav.active{display:flex;}
+canvas#nav-rain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.08;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ -->
+<!-- SECTION 1: NARRATIVE               -->
+<!-- ═══════════════════════════════════ -->
+<div id="narrative-section" class="app-section visible">
+  <canvas id="nav-rain"></canvas>
+  <div id="nav-intro">
+  <div class="i-school">College Camille See &middot; Paris &middot; Voyage Linguistique</div>
+  <div class="i-rule"></div>
+  <div class="i-title">The Last Day<span>of Lord Blackwood</span></div>
+  <div class="i-date">9th November, 1888 &mdash; London</div>
+  <div class="i-rule"></div>
+  <div class="i-sub">A dramatic reconstruction &middot; Une reconstitution dramatique</div>
+  <button class="i-btn" onclick="navBeginStory()">&#9654; Begin the story</button>
+</div>
+<div id="nav-story">
+  <div class="strip">
+    <div class="strip-title">Operation Black Fog &mdash; The Last Day</div>
+    <div class="strip-right">
+      <span class="svs" id="vs">...</span>
+      <button class="sbtn on" id="vbtn" onclick="navToggleVoice()">&#128266; Voice</button>
+      <button class="sbtn" id="rbtn2" onclick="navReplayVoice()" style="display:none">&#8635; Replay</button>
+      <button class="sbtn on" id="mbtn" onclick="navToggleMusicBtn()">&#9835; Music</button>
+    </div>
+  </div>
+  <div class="pbar"><div class="pfill" id="pf" style="width:0%"></div></div>
+  <div id="page" class="page"></div>
+</div>
+<div class="bnav" id="nav-bnav">
+  <button class="nbtn" id="bprev" onclick="navPrevCard()" disabled>&#8592; Prec.</button>
+  <div class="nav-mid">
+    <div class="dots" id="dots"></div>
+    <div class="nav-ctr" id="nctr">1 / 8</div>
+  </div>
+  <button class="nbtn primary" id="bnext" onclick="navNextCard()">Suivant &#8594;</button>
+</div>
+<div id="nav-end">
+  <div class="end-stamp">Case File 1888</div>
+  <div class="end-title">Who killed<br>Lord Blackwood?</div>
+  <div class="end-sub">The investigation begins now &middot; L'enquete commence maintenant</div>
+  <div class="end-quote">"The fog swallows all secrets in London. But Scotland Yard forgets nothing."</div>
+  <button class="rbtn" onclick="navRestart()">&#8635; Watch again / Recommencer</button>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════ -->
+<!-- SECTION 2: GAME                    -->
+<!-- ═══════════════════════════════════ -->
+<div id="game-section" class="app-section">
+  <!-- TOP BAR -->
+<div class="topbar" id="topbar">
+  <div class="lang-pill">
+    <button id="bfr" class="AL" onclick="setL('fr')">🇫🇷 FR</button>
+    <button id="ben" onclick="setL('en')">🇬🇧 EN</button>
+  </div>
+  <button class="coord-link" onclick="showS('coord-login')" id="coordLink">⚙ Coordinateur</button>
+</div>
+
+<!-- ══════════════ INTRO ══════════════ -->
+<div id="intro" class="screen active">
+  <div class="school-row"><div class="hr-gold"></div><div class="school-lbl">Collège Camille Sée · Paris · Voyage Linguistique</div><div class="hr-gold"></div></div>
+  <div class="eyebrow" id="ey1">Scotland Yard — Division des Enquêtes Criminelles</div>
+  <div class="main-title">OPERATION<em>BLACK FOG</em></div>
+  <div class="sub" id="ey2">Une enquête bilingue · A bilingual investigation</div>
+
+  <div class="info-box">
+    <div class="info-icon">⭐</div>
+    <div class="info-txt" id="infotxt">
+      <strong>Parcours en étoile — 3 balises par équipe</strong><br>
+      Hub central : <strong>La Piazza, Covent Garden</strong>. Chaque équipe visite <strong>3 lieux</strong> dans un ordre différent, résout une énigme à chaque arrêt, et revient au hub entre chaque balise. Les adultes restent au hub et vous redirigent.
+    </div>
+  </div>
+
+  <div class="dossier">
+    <div class="dstamp">URGENT</div>
+    <div class="dref" id="dref">Réf. SCY-1888 · Dossier Confidentiel · 3ème — Camille Sée</div>
+    <h3 id="dtitle">⚠ Avis aux inspecteurs stagiaires</h3>
+    <p id="dp1"><strong>Date :</strong> Nuit du 9 novembre — Brouillard épais sur la Tamise.<br><strong>Victime :</strong> Lord Edmund Blackwood, riche marchand de la City.</p>
+    <p id="dp2">Retrouvé sans vie près de <em>Covent Garden</em>. Son meurtrier court toujours. Vous avez <strong>2 heures</strong>.</p>
+    <p id="dp3"><strong>Mode :</strong> 3 balises par équipe · Retour au hub entre chaque · Verdict collectif final</p>
+  </div>
+
+  <p class="glabel" id="glbl">— Sélectionnez votre équipe / Choose your team —</p>
+  <div class="ggrid">
+    <button class="gbtn" data-g="1" onclick="selG(1)">ÉQUIPE 1<small>Rouge</small></button>
+    <button class="gbtn" data-g="2" onclick="selG(2)">ÉQUIPE 2<small>Orange</small></button>
+    <button class="gbtn" data-g="3" onclick="selG(3)">ÉQUIPE 3<small>Or</small></button>
+    <button class="gbtn" data-g="4" onclick="selG(4)">ÉQUIPE 4<small>Verte</small></button>
+    <button class="gbtn" data-g="5" onclick="selG(5)">ÉQUIPE 5<small>Bleue</small></button>
+    <button class="gbtn" data-g="6" onclick="selG(6)">ÉQUIPE 6<small>Violette</small></button>
+  </div>
+  <button class="cta" id="startBtn" onclick="startGame()">▶ &nbsp;Commencer / Start</button>
+</div>
+
+<!-- ══════════════ MISSION ══════════════ -->
+<div id="mission" class="screen">
+  <div class="hud">
+    <div class="hud-g" id="hudg">Camille Sée</div>
+    <div class="hud-p" id="hudp">0/3 balises</div>
+    <div class="hud-t" id="hudt">2:00:00</div>
+  </div>
+  <div class="pstrip"><div class="pfill" id="pfill" style="width:0%"></div></div>
+  <div class="snav" id="snav"></div>
+  <div id="tcont"></div>
+  <div style="text-align:center;margin-top:1.5rem;">
+    <button class="cta" style="display:inline-block;font-size:.76rem;padding:.65rem 1.8rem;" onclick="showS('finale');buildEv();">⚖ Verdict final</button>
+  </div>
+</div>
+
+<!-- ══════════════ FINALE ══════════════ -->
+<div id="finale" class="screen">
+  <div class="ftitle">⚖ Verdict</div>
+  <div class="fsub">Qui a tué Lord Blackwood ? / Who killed Lord Blackwood?</div>
+  <div class="vcard">
+    <div class="vh">Accusez un suspect / Accuse a suspect</div>
+    <div class="vhen">Study your evidence carefully before you point the finger.</div>
+    <div class="sgrid">
+      <div class="sus" onclick="pickS(this,`Lady Victoria Ashford`)"><div class="sico">👩‍💼</div><div class="sname">Lady Victoria Ashford</div><div class="ssubt">L'héritière / The heiress</div><div class="srole">Nièce · Niece</div></div>
+      <div class="sus" onclick="pickS(this,`Dr. Cornelius Vane`)"><div class="sico">🧪</div><div class="sname">Dr. Cornelius Vane</div><div class="ssubt">Le médecin / The physician</div><div class="srole">Médecin · Doctor</div></div>
+      <div class="sus" onclick="pickS(this,`Thomas Griggs`)"><div class="sico">🔑</div><div class="sname">Thomas Griggs</div><div class="ssubt">Le majordome / The butler</div><div class="srole">Majordome · Butler</div></div>
+      <div class="sus" onclick="pickS(this,`Madame Elspeth Cross`)"><div class="sico">🃏</div><div class="sname">Madame Elspeth Cross</div><div class="ssubt">La complice / The accomplice</div><div class="srole">Associée · Associate</div></div>
+    </div>
+    <button class="accbtn" id="accbtn" disabled onclick="accuse()">⚖ Prononcer l'accusation / Make your accusation</button>
+  </div>
+  <div class="evwrap"><div class="evtitle">Preuves recueillies / Evidence collected</div><div class="evlist" id="evlist"></div></div>
+  <div id="reveal"></div>
+  <button class="backbtn" onclick="showS('mission')">← Retour / Back</button>
+</div>
+
+<!-- ══════════════ COORD LOGIN ══════════════ -->
+<div id="coord-login" class="screen">
+  <div class="login-box">
+    <h2>⚙ Mode Coordinateur</h2>
+    <p>Accès réservé aux adultes encadrants</p>
+    <input class="pwd-input" type="password" id="pwdInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPwd()">
+    <button class="pwd-btn" onclick="checkPwd()">ACCÉDER</button>
+    <div class="pwd-err" id="pwdErr">Mot de passe incorrect.</div>
+    <button class="backbtn" style="margin-top:1rem;display:block;width:100%;text-align:center;" onclick="showS('intro')">← Retour</button>
+  </div>
+</div>
+
+<!-- ══════════════ COORD DASHBOARD ══════════════ -->
+<div id="coord" class="screen">
+  <div class="coord-header">
+    <div class="coord-title-bar">⚙ Coordinateur — Opération Black Fog</div>
+    <div class="coord-timer" id="coordTimer">2:00:00</div>
+  </div>
+
+  <div class="dispatch-wrap">
+
+    <div class="coord-note" id="coordNote">
+      <strong>Comment utiliser ce tableau :</strong> Quand une équipe revient au hub, regardez la ligne correspondante. Le badge coloré à droite indique la prochaine balise à leur donner. Validez oralement leur réponse (voir clés ci-dessous), puis envoyez-les.
+    </div>
+
+    <div class="dispatch-title" id="dispatchTitle">TABLEAU DE DISPATCH — État des équipes</div>
+    <div id="teamRows"></div>
+
+    <div class="key-section">
+      <div class="key-title">🔑 CLE DES REPONSES — Réservé professeur</div>
+      <div class="key-grid" id="keyGrid"></div>
+    </div>
+
+    <div style="margin-top:1.5rem;max-width:700px;margin-left:auto;margin-right:auto;">
+      <div class="key-title">⚖ COUPABLE</div>
+      <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:1rem;font-size:.82rem;line-height:1.8;color:var(--aged);">
+        <strong style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;">Dr. Cornelius Vane</strong> — médecin personnel de Blackwood.<br>
+        Motif : dettes de jeu · Moyen : Laudanum dans le cognac · Preuve : flacon + alibi effondré<br>
+        <span style="color:#555;font-size:.68rem;font-style:italic;">Mot de passe final (hub) : GUILTY</span>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem;">
+      <button class="backbtn" onclick="showS('intro')">← Retour à l'accueil</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+/* ════════════════════════════════════════
+   SAFE WRAPPERS - defined first to avoid hoisting issues
+   ════════════════════════════════════════ */
+function navStopSpeech() {
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  var rb = document.getElementById('rbtn2');
+  if(rb) rb.style.display='none';
+}
+function navStopMusic() {
+  for(var i=0;i<navMusicNodes.length;i++){
+    try{if(navMusicNodes[i].stop)navMusicNodes[i].stop();navMusicNodes[i].disconnect();}catch(e){}
+  }
+  navMusicNodes=[];
+  if(navAudioCtx){try{navAudioCtx.close();}catch(e){} navAudioCtx=null;}
+}
+var navMusicNodes=[];
+var navAudioCtx=null;
+var navVoiceOn=true;
+var navMusicOn=true;
+var navCur=0;
+var navDrops=[];
+var navRc=document.getElementById('nav-rain');
+var navRx=navRc?navRc.getContext('2d'):null;
+
+/* ════════════════════════════════════════
+   SECTION SWITCHER
+   ════════════════════════════════════════ */
+function showSection(id) {
+  document.querySelectorAll('.app-section').forEach(function(s){
+    s.classList.remove('visible');
+    s.scrollTop = 0;
+  });
+  document.getElementById(id).classList.add('visible');
+  window.scrollTo(0,0);
+}
+
+function launchGame() {
+  navStopMusic();
+  navStopSpeech();
+  showSection('game-section');
+  // Show game intro screen
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('intro').classList.add('active');
+  document.getElementById('topbar').style.display = 'flex';
+}
+
+function backToNarrative() {
+  showSection('narrative-section');
+}
+
+/* ════════════════════════════════════════
+   NARRATIVE JS
+   ════════════════════════════════════════ */
+var SVGS = [
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g0" cx="50%" cy="60%" r="70%"><stop offset="0%" stop-color="#1a1208"/><stop offset="100%" stop-color="#040404"/></radialGradient><linearGradient id="fog0" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#111" stop-opacity="0"/><stop offset="100%" stop-color="#0a0a0a" stop-opacity="1"/></linearGradient></defs><rect width="700" height="300" fill="url(#g0)"/><!-- Stars --><circle cx="60" cy="20" r=".8" fill="#fff" opacity=".3"/><circle cx="150" cy="12" r="1" fill="#fff" opacity=".22"/><circle cx="300" cy="8" r=".7" fill="#fff" opacity=".18"/><circle cx="480" cy="15" r=".9" fill="#fff" opacity=".25"/><circle cx="620" cy="22" r=".8" fill="#fff" opacity=".2"/><circle cx="550" cy="6" r=".6" fill="#fff" opacity=".15"/><!-- Moon --><circle cx="600" cy="35" r="18" fill="#1a1a14" stroke="#2e2e22" stroke-width="1"/><circle cx="607" cy="30" r="15" fill="#0d0d0a"/><!-- Big Ben / clock tower --><rect x="290" y="40" width="40" height="200" fill="#111" stroke="#1e1e1e" stroke-width="1"/><rect x="278" y="38" width="64" height="16" fill="#141414" stroke="#222" stroke-width="1"/><rect x="282" y="22" width="56" height="18" fill="#141414" stroke="#1e1e1e" stroke-width="1"/><!-- Clock face --><circle cx="310" cy="70" r="16" fill="#0a0a06" stroke="#b8922a" stroke-width="1.5" opacity=".8"/><circle cx="310" cy="70" r="12" fill="#0a0a06" stroke="#b8922a" stroke-width=".6" opacity=".5"/><line x1="310" y1="70" x2="310" y2="58" stroke="#b8922a" stroke-width="1.2" opacity=".8"/><line x1="310" y1="70" x2="320" y2="70" stroke="#b8922a" stroke-width="1" opacity=".8"/><!-- Spire --><polygon points="302,22 318,22 310,2" fill="#161616" stroke="#222" stroke-width="1"/><!-- Thames --><rect x="0" y="220" width="700" height="80" fill="#050e0e"/><!-- Water reflections --><line x1="50" y1="235" x2="180" y2="240" stroke="#0a1a1a" stroke-width="2"/><line x1="220" y1="230" x2="380" y2="237" stroke="#0a1a1a" stroke-width="2"/><line x1="420" y1="233" x2="600" y2="239" stroke="#0a1a1a" stroke-width="2"/><!-- Clock tower reflection in Thames --><rect x="300" y="225" width="20" height="60" fill="#0d0d08" opacity=".5"/><!-- Westminster bridge suggestion --><rect x="0" y="215" width="700" height="10" fill="#111" stroke="#1a1a1a" stroke-width="1"/><line x1="100" y1="200" x2="100" y2="215" stroke="#111" stroke-width="6"/><line x1="200" y1="200" x2="200" y2="215" stroke="#111" stroke-width="6"/><line x1="400" y1="200" x2="400" y2="215" stroke="#111" stroke-width="6"/><line x1="500" y1="200" x2="500" y2="215" stroke="#111" stroke-width="6"/><!-- Buildings silhouette left --><rect x="0" y="100" width="80" height="120" fill="#0a0a0a"/><rect x="20" y="80" width="40" height="140" fill="#0d0d0d" stroke="#161616" stroke-width=".5"/><rect x="25" y="90" width="8" height="6" fill="#b8922a" opacity=".12"/><rect x="38" y="95" width="8" height="6" fill="#b8922a" opacity=".08"/><rect x="25" y="108" width="8" height="6" fill="#b8922a" opacity=".15"/><rect x="80" y="120" width="60" height="100" fill="#0a0a0a"/><rect x="85" y="110" width="50" height="110" fill="#0d0d0d" stroke="#161616" stroke-width=".5"/><rect x="90" y="118" width="8" height="6" fill="#b8922a" opacity=".1"/><rect x="105" y="125" width="8" height="6" fill="#b8922a" opacity=".14"/><!-- Buildings silhouette right --><rect x="370" y="90" width="70" height="130" fill="#0d0d0d" stroke="#161616" stroke-width=".5"/><rect x="380" y="95" width="8" height="6" fill="#b8922a" opacity=".1"/><rect x="395" y="102" width="8" height="6" fill="#b8922a" opacity=".13"/><rect x="380" y="115" width="8" height="6" fill="#b8922a" opacity=".08"/><rect x="450" y="110" width="90" height="110" fill="#0a0a0a"/><rect x="455" y="100" width="80" height="120" fill="#0d0d0d" stroke="#161616" stroke-width=".5"/><rect x="460" y="108" width="8" height="6" fill="#b8922a" opacity=".12"/><rect x="475" y="115" width="8" height="6" fill="#b8922a" opacity=".09"/><rect x="550" y="130" width="80" height="90" fill="#0a0a0a"/><rect x="555" y="120" width="70" height="100" fill="#0d0d0d" stroke="#161616" stroke-width=".5"/><rect x="558" y="128" width="8" height="6" fill="#b8922a" opacity=".11"/><rect x="572" y="135" width="8" height="6" fill="#b8922a" opacity=".15"/><rect x="640" y="140" width="60" height="80" fill="#0a0a0a"/><!-- Fog overlay --><rect x="0" y="150" width="700" height="70" fill="url(#fog0)" opacity=".7"/><!-- Lampposts on bridge --><line x1="150" y1="185" x2="150" y2="215" stroke="#161616" stroke-width="3"/><circle cx="150" cy="182" r="6" fill="#0d0d0a" stroke="#1e1e1a" stroke-width=".8"/><circle cx="150" cy="180" r="3" fill="#b8922a" opacity=".3"/><line x1="350" y1="185" x2="350" y2="215" stroke="#161616" stroke-width="3"/><circle cx="350" cy="182" r="6" fill="#0d0d0a" stroke="#1e1e1a" stroke-width=".8"/><circle cx="350" cy="180" r="3" fill="#b8922a" opacity=".3"/><line x1="550" y1="185" x2="550" y2="215" stroke="#161616" stroke-width="3"/><circle cx="550" cy="182" r="6" fill="#0d0d0a" stroke="#1e1e1a" stroke-width=".8"/><circle cx="550" cy="180" r="3" fill="#b8922a" opacity=".3"/><!-- Scotland Yard text --><text x="350" y="290" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#b8922a" opacity=".8" font-style="italic">London, November 1888</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g1" cx="50%" cy="80%" r="70%"><stop offset="0%" stop-color="#181008"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><rect width="700" height="300" fill="url(#g1)"/><circle cx="120" cy="35" r="1" fill="#fff" opacity=".3"/><circle cx="580" cy="20" r=".8" fill="#fff" opacity=".25"/><circle cx="350" cy="12" r="1" fill="#fff" opacity=".2"/><rect x="200" y="70" width="300" height="200" fill="#0d0d0d" stroke="#2a2a2a" stroke-width="1"/><polygon points="200,70 350,22 500,70" fill="#111" stroke="#252525" stroke-width="1.5"/><rect x="215" y="95" width="16" height="175" fill="#181818" stroke="#2a2a2a" stroke-width=".5"/><rect x="242" y="95" width="16" height="175" fill="#181818" stroke="#2a2a2a" stroke-width=".5"/><rect x="442" y="95" width="16" height="175" fill="#181818" stroke="#2a2a2a" stroke-width=".5"/><rect x="469" y="95" width="16" height="175" fill="#181818" stroke="#2a2a2a" stroke-width=".5"/><rect x="316" y="175" width="68" height="95" fill="#060606" stroke="#383838" stroke-width="1"/><path d="M316,175 Q350,145 384,175" fill="#090909" stroke="#383838" stroke-width="1.5"/><rect x="188" y="265" width="324" height="10" fill="#141414" stroke="#222" stroke-width=".5"/><rect x="178" y="273" width="344" height="8" fill="#111" stroke="#1e1e1e" stroke-width=".5"/><ellipse cx="340" cy="242" rx="6" ry="12" fill="#7a1515"/><ellipse cx="372" cy="248" rx="5" ry="10" fill="#3a3a3a"/><rect x="354" y="240" width="14" height="9" fill="#b8922a" opacity=".85" rx="1"/><ellipse cx="100" cy="288" rx="130" ry="22" fill="#0d0d0d" opacity=".9"/><ellipse cx="600" cy="292" rx="110" ry="18" fill="#0d0d0d" opacity=".9"/><text x="350" y="292" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".65" font-style="italic">Covent Garden, 10:00 AM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g2" cx="50%" cy="55%" r="65%"><stop offset="0%" stop-color="#141414"/><stop offset="100%" stop-color="#040404"/></radialGradient></defs><rect width="700" height="300" fill="url(#g2)"/><line x1="350" y1="170" x2="50" y2="45" stroke="#181818" stroke-width="26"/><line x1="350" y1="170" x2="650" y2="45" stroke="#181818" stroke-width="26"/><line x1="350" y1="170" x2="350" y2="0" stroke="#181818" stroke-width="26"/><line x1="350" y1="170" x2="700" y2="190" stroke="#181818" stroke-width="26"/><line x1="350" y1="170" x2="0" y2="190" stroke="#181818" stroke-width="26"/><line x1="350" y1="170" x2="540" y2="300" stroke="#181818" stroke-width="26"/><line x1="350" y1="170" x2="160" y2="300" stroke="#181818" stroke-width="26"/><rect x="0" y="215" width="700" height="85" fill="#0b0b0b"/><rect x="334" y="112" width="32" height="158" fill="#1c1c1c" stroke="#2e2e2e" stroke-width="1"/><rect x="339" y="58" width="22" height="62" fill="#222" stroke="#333" stroke-width="1"/><circle cx="350" cy="52" r="15" fill="#181818" stroke="#3a3a3a" stroke-width="1.5"/><ellipse cx="305" cy="245" rx="5" ry="11" fill="#7a1515"/><line x1="305" y1="234" x2="305" y2="226" stroke="#7a1515" stroke-width="3"/><line x1="548" y1="96" x2="548" y2="270" stroke="#1a1a1a" stroke-width="4"/><ellipse cx="548" cy="90" rx="11" ry="7" fill="#0f0f0f" stroke="#2a2a2a" stroke-width="1"/><circle cx="548" cy="87" r="5" fill="#b8922a" opacity=".3"/><text x="350" y="291" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".65" font-style="italic">Seven Dials, 12:00 PM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#080808"/><stop offset="100%" stop-color="#141414"/></linearGradient></defs><rect width="700" height="300" fill="url(#g3)"/><circle cx="80" cy="35" r=".8" fill="#fff" opacity=".3"/><circle cx="600" cy="50" r="1" fill="#fff" opacity=".22"/><rect x="334" y="18" width="22" height="210" fill="#181818" stroke="#2a2a2a" stroke-width="1"/><rect x="314" y="222" width="72" height="18" fill="#1c1c1c" stroke="#2e2e2e" stroke-width="1"/><ellipse cx="345" cy="16" rx="6" ry="8" fill="#111" stroke="#2e2e2e" stroke-width=".8"/><path d="M65,250 Q83,177 123,187 Q143,193 143,250 Z" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="1"/><ellipse cx="83" cy="191" rx="17" ry="13" fill="#1e1e1e" stroke="#2e2e2e" stroke-width="1"/><circle cx="83" cy="191" r="21" fill="none" stroke="#242424" stroke-width="5" opacity=".8"/><ellipse cx="175" cy="247" rx="4" ry="9" fill="#7a1515"/><rect x="163" y="239" width="11" height="8" fill="#b8922a" opacity=".9" rx="1"/><path d="M506,250 Q524,177 564,187 Q584,193 584,250 Z" fill="#1a1a1a" stroke="#2e2e2e" stroke-width="1"/><ellipse cx="564" cy="191" rx="17" ry="13" fill="#1e1e1e" stroke="#2e2e2e" stroke-width="1"/><circle cx="564" cy="191" r="21" fill="none" stroke="#242424" stroke-width="5" opacity=".8"/><ellipse cx="175" cy="272" rx="55" ry="14" fill="#0a1414" stroke="#0e1c1c" stroke-width="1"/><ellipse cx="525" cy="272" rx="55" ry="14" fill="#0a1414" stroke="#0e1c1c" stroke-width="1"/><rect x="0" y="280" width="700" height="20" fill="#0a0a0a"/><text x="350" y="293" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".65" font-style="italic">Trafalgar Square, 3:00 PM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g4" cx="50%" cy="65%" r="60%"><stop offset="0%" stop-color="#111"/><stop offset="100%" stop-color="#050505"/></radialGradient></defs><rect width="700" height="300" fill="url(#g4)"/><rect x="0" y="55" width="205" height="230" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="1"/><rect x="495" y="55" width="205" height="230" fill="#0e0e0e" stroke="#1e1e1e" stroke-width="1"/><rect x="195" y="70" width="310" height="220" fill="#111" stroke="#222" stroke-width="1"/><rect x="295" y="148" width="110" height="142" fill="#060606" stroke="#2e2e2e" stroke-width="1"/><path d="M295,148 Q350,110 405,148" fill="#090909" stroke="#2e2e2e" stroke-width="1.5"/><rect x="210" y="88" width="13" height="202" fill="#161616" stroke="#262626" stroke-width=".5"/><rect x="234" y="88" width="13" height="202" fill="#161616" stroke="#262626" stroke-width=".5"/><rect x="453" y="88" width="13" height="202" fill="#161616" stroke="#262626" stroke-width=".5"/><rect x="477" y="88" width="13" height="202" fill="#161616" stroke="#262626" stroke-width=".5"/><ellipse cx="385" cy="252" rx="5" ry="11" fill="#7a1515"/><line x1="385" y1="241" x2="385" y2="234" stroke="#7a1515" stroke-width="3"/><rect x="388" y="245" width="15" height="9" fill="#b8922a" opacity=".7" rx="1"/><ellipse cx="245" cy="255" rx="4" ry="10" fill="#2e2e2e"/><line x1="245" y1="245" x2="245" y2="238" stroke="#2e2e2e" stroke-width="2.5"/><text x="350" y="294" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".65" font-style="italic">Somerset House, 4:00 PM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="rv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#050a0a"/><stop offset="100%" stop-color="#0a1616"/></linearGradient></defs><rect width="700" height="300" fill="#080808"/><circle cx="80" cy="38" r="1" fill="#fff" opacity=".35"/><circle cx="200" cy="18" r=".8" fill="#fff" opacity=".22"/><circle cx="450" cy="28" r="1.2" fill="#fff" opacity=".2"/><circle cx="620" cy="14" r=".9" fill="#fff" opacity=".28"/><rect x="0" y="215" width="700" height="85" fill="url(#rv)"/><rect x="0" y="205" width="700" height="14" fill="#0e0e0e" stroke="#1a1a1a" stroke-width="1"/><polygon points="344,14 356,14 366,208 334,208" fill="#181818" stroke="#2a2a2a" stroke-width="1.5"/><polygon points="344,14 356,14 350,2" fill="#222" stroke="#333" stroke-width="1"/><path d="M220,208 Q248,180 286,190 Q306,196 306,208 Z" fill="#161616" stroke="#242424" stroke-width="1"/><ellipse cx="228" cy="190" rx="13" ry="9" fill="#1a1a1a" stroke="#272727" stroke-width="1"/><path d="M394,208 Q422,180 452,190 Q472,196 472,208 Z" fill="#161616" stroke="#242424" stroke-width="1"/><ellipse cx="470" cy="190" rx="13" ry="9" fill="#1a1a1a" stroke="#272727" stroke-width="1"/><ellipse cx="350" cy="196" rx="5" ry="10" fill="#7a1515"/><line x1="350" y1="186" x2="355" y2="182" stroke="#7a1515" stroke-width="2.5"/><path d="M355,188 Q370,174 378,212" fill="none" stroke="#b8922a" stroke-width="1" stroke-dasharray="3,3" opacity=".7"/><ellipse cx="380" cy="216" rx="5" ry="2" fill="#b8922a" opacity=".4"/><ellipse cx="600" cy="200" rx="3" ry="7" fill="#333"/><text x="350" y="292" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".65" font-style="italic">Victoria Embankment, 6:00 PM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g6" cx="50%" cy="38%" r="55%"><stop offset="0%" stop-color="#1a1008"/><stop offset="100%" stop-color="#060606"/></radialGradient></defs><rect width="700" height="300" fill="url(#g6)"/><rect x="95" y="35" width="510" height="245" fill="#0d0a06" stroke="#1c1810" stroke-width="1"/><rect x="95" y="35" width="58" height="245" fill="#0e0808" stroke="#1c1010" stroke-width=".5"/><rect x="547" y="35" width="58" height="245" fill="#0e0808" stroke="#1c1010" stroke-width=".5"/><path d="M95,35 Q124,75 95,118 Q124,158 95,198" fill="none" stroke="#7a1515" stroke-width="3" opacity=".55"/><path d="M605,35 Q576,75 605,118 Q576,158 605,198" fill="none" stroke="#7a1515" stroke-width="3" opacity=".55"/><circle cx="350" cy="52" r="18" fill="#0a0a06" stroke="#221e0a" stroke-width="1"/><circle cx="350" cy="52" r="7" fill="#b8922a" opacity=".28"/><rect x="295" y="35" width="110" height="20" fill="#0d0a06" stroke="#b8922a" stroke-width=".8"/><text x="350" y="49" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#b8922a" opacity=".75" font-style="italic">INTERVAL</text><rect x="285" y="190" width="130" height="10" rx="2" fill="#181208" stroke="#221810" stroke-width="1"/><rect x="308" y="172" width="11" height="20" rx="3" fill="#0a1414" stroke="#1c2828" stroke-width=".8"/><rect x="381" y="172" width="11" height="20" rx="3" fill="#0a1414" stroke="#1c2828" stroke-width=".8"/><rect x="309" y="173" width="9" height="7" rx="2" fill="#b8922a" opacity=".4"/><ellipse cx="381" cy="164" rx="6" ry="12" fill="#1a1a1a"/><rect x="388" y="158" width="5" height="12" rx="2" fill="#7a1515" opacity=".8"/><path d="M391,168 Q393,178 382,181" fill="none" stroke="#7a1515" stroke-width="1" opacity=".8"/><ellipse cx="318" cy="168" rx="6" ry="12" fill="#7a1515"/><line x1="318" y1="168" x2="314" y2="178" stroke="#7a1515" stroke-width="2"/><ellipse cx="168" cy="234" rx="9" ry="13" fill="#0d0d0d"/><ellipse cx="196" cy="229" rx="8" ry="12" fill="#111"/><ellipse cx="224" cy="236" rx="9" ry="13" fill="#0d0d0d"/><ellipse cx="476" cy="232" rx="9" ry="13" fill="#0d0d0d"/><ellipse cx="504" cy="227" rx="8" ry="12" fill="#111"/><ellipse cx="532" cy="234" rx="9" ry="13" fill="#0d0d0d"/><rect x="95" y="270" width="510" height="10" fill="#0a0a06"/><text x="350" y="292" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".65" font-style="italic">Leicester Square, 7:00 PM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g7" cx="38%" cy="55%" r="50%"><stop offset="0%" stop-color="#120a04"/><stop offset="100%" stop-color="#050505"/></radialGradient></defs><rect width="700" height="300" fill="url(#g7)"/><rect x="0" y="168" width="700" height="132" fill="#0c0c0c"/><line x1="0" y1="182" x2="700" y2="182" stroke="#111" stroke-width=".8"/><line x1="0" y1="198" x2="700" y2="198" stroke="#111" stroke-width=".8"/><line x1="0" y1="214" x2="700" y2="214" stroke="#111" stroke-width=".8"/><line x1="95" y1="168" x2="95" y2="300" stroke="#111" stroke-width=".8"/><line x1="210" y1="168" x2="210" y2="300" stroke="#111" stroke-width=".8"/><line x1="330" y1="168" x2="330" y2="300" stroke="#111" stroke-width=".8"/><line x1="450" y1="168" x2="450" y2="300" stroke="#111" stroke-width=".8"/><line x1="575" y1="168" x2="575" y2="300" stroke="#111" stroke-width=".8"/><rect x="0" y="38" width="135" height="140" fill="#0a0a0a" stroke="#161616" stroke-width="1"/><rect x="565" y="55" width="135" height="122" fill="#0a0a0a" stroke="#161616" stroke-width="1"/><rect x="18" y="55" width="18" height="13" fill="#b8922a" opacity=".16"/><rect x="46" y="55" width="18" height="13" fill="#b8922a" opacity=".11"/><rect x="578" y="70" width="18" height="13" fill="#b8922a" opacity=".14"/><line x1="198" y1="75" x2="198" y2="172" stroke="#141414" stroke-width="4"/><ellipse cx="198" cy="69" rx="9" ry="6" fill="#0d0d0d" stroke="#1e1e1e" stroke-width="1"/><circle cx="198" cy="67" r="4" fill="#b8922a" opacity=".32"/><line x1="502" y1="85" x2="502" y2="172" stroke="#141414" stroke-width="4"/><ellipse cx="502" cy="79" rx="9" ry="6" fill="#0d0d0d" stroke="#1e1e1e" stroke-width="1"/><circle cx="502" cy="77" r="4" fill="#b8922a" opacity=".28"/><ellipse cx="350" cy="218" rx="52" ry="13" fill="#7a1515" opacity=".9"/><ellipse cx="350" cy="213" rx="37" ry="8" fill="#6a1010"/><circle cx="388" cy="210" r="9" fill="#7a1515"/><rect x="374" y="204" width="13" height="9" fill="#b8922a" opacity=".95" rx="1"/><circle cx="381" cy="208" r="11" fill="#b8922a" opacity=".1"/><ellipse cx="350" cy="228" rx="32" ry="5" fill="#4a0a0a" opacity=".7"/><ellipse cx="428" cy="198" rx="4" ry="9" fill="#3e3e3e"/><line x1="428" y1="189" x2="426" y2="183" stroke="#3e3e3e" stroke-width="2.5"/><line x1="428" y1="195" x2="417" y2="208" stroke="#3e3e3e" stroke-width="1.5"/><text x="350" y="292" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#b8922a" opacity=".75" font-style="italic">Covent Garden, La Piazza, 9:00 PM</text></svg>',
+'<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g8" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#1a0e08"/><stop offset="100%" stop-color="#050505"/></radialGradient></defs><rect width="700" height="300" fill="url(#g8)"/><rect x="95" y="168" width="510" height="20" rx="2" fill="#1a1208" stroke="#2a1e10" stroke-width="1"/><rect x="115" y="128" width="115" height="44" fill="#f0e6cc" opacity=".82" rx="1" transform="rotate(-5,172,150)"/><rect x="192" y="122" width="96" height="38" fill="#e8d8b0" opacity=".78" rx="1" transform="rotate(3,240,141)"/><rect x="390" y="130" width="105" height="40" fill="#f0e6cc" opacity=".78" rx="1" transform="rotate(-3,442,150)"/><rect x="448" y="126" width="86" height="36" fill="#e0d0a8" opacity=".72" rx="1" transform="rotate(6,491,144)"/><rect x="124" y="132" width="76" height="16" fill="none" stroke="#7a1515" stroke-width="1.5" opacity=".8"/><text x="162" y="143" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#7a1515" opacity=".9" font-weight="bold">CLASSIFIED</text><rect x="283" y="118" width="48" height="58" fill="#1a1a1a" stroke="#7a1515" stroke-width="1.5"/><ellipse cx="307" cy="143" rx="11" ry="13" fill="#242424"/><line x1="165" y1="130" x2="283" y2="128" stroke="#7a1515" stroke-width="1" stroke-dasharray="4,3" opacity=".7"/><line x1="331" y1="128" x2="418" y2="133" stroke="#7a1515" stroke-width="1" stroke-dasharray="4,3" opacity=".7"/><circle cx="165" cy="130" r="3" fill="#7a1515"/><circle cx="283" cy="128" r="3" fill="#7a1515"/><circle cx="331" cy="128" r="3" fill="#7a1515"/><circle cx="418" cy="133" r="3" fill="#7a1515"/><circle cx="350" cy="82" r="33" fill="none" stroke="#b8922a" stroke-width="1.5" opacity=".55"/><path d="M337,74 L341,65 L345,74 L350,62 L355,74 L359,65 L363,74" fill="none" stroke="#b8922a" stroke-width="1.2" opacity=".65"/><circle cx="540" cy="155" r="19" fill="none" stroke="#3e3e3e" stroke-width="2"/><line x1="553" y1="168" x2="564" y2="181" stroke="#3e3e3e" stroke-width="3"/><text x="350" y="262" text-anchor="middle" font-family="Georgia,serif" font-size="55" fill="#7a1515" opacity=".12" font-weight="700">?</text><text x="350" y="292" text-anchor="middle" font-family="Georgia,serif" font-size="12" fill="#b8922a" opacity=".85" font-style="italic">Scotland Yard. Your turn now.</text></svg>'
+];
+
+var CARDS = [
+  {n:0,time:'London, 1888',loc:'Scotland Yard - Criminal Investigation Division',title:'The Investigation',
+   en:"London, November 1888. A thick fog blankets the city. Lord Edmund Blackwood — wealthy merchant, collector, and man of secrets — has been found dead on the cobblestones of Covent Garden. In his clenched fist: a letter addressed to Scotland Yard. Never sent. The official verdict: natural causes. But Scotland Yard is not convinced. Someone powerful wanted him silenced. You are the investigators. Retrace his final steps through the fog. Find the truth. Find the killer.",
+   fr:"Londres, novembre 1888. Un epais brouillard recouvre la ville. Lord Edmund Blackwood — riche marchand, collectionneur et homme de secrets — a ete retrouve mort sur les paves de Covent Garden. Dans son poing serre : une lettre adressee a Scotland Yard. Jamais envoyee. Verdict officiel : mort naturelle. Mais Scotland Yard n'est pas convaincu. Quelqu'un de puissant voulait le faire taire. Vous etes les enqueteurs. Retracez ses derniers pas dans le brouillard. Trouvez la verite. Trouvez le meurtrier."},
+
+  {n:1,time:'10:00',loc:"St Paul's Church - Covent Garden",title:'The Envelope',
+   en:"Lord Edmund Blackwood enters the famous Actors' Church discreetly, during a private theatrical rehearsal. He looks nervous. He approaches his lawyer, seated in the front pew, and slips a sealed envelope into his hands. Inside: a letter accusing Dr. Cornelius Vane of forging his will. The lawyer promises to read it the following morning. He never does. It will already be too late.",
+   fr:"Lord Blackwood entre discretement dans l'eglise des acteurs. Il glisse a son avocat une enveloppe cachetee accusant le Dr. Vane de falsification de testament. L'avocat promet de la lire le lendemain. Il sera deja trop tard."},
+  {n:2,time:'12:00',loc:'Seven Dials - The Crossroads',title:'The Informant Who Never Came',
+   en:"Blackwood waits at the foot of the famous column with its six sundials, at the crossroads of seven streets. He has an appointment with an informant who claims to hold evidence against Dr. Vane. He waits for forty minutes. The informant never appears. What Blackwood does not know: the man was paid by Vane himself to stay away. Blackwood leaves, increasingly frightened.",
+   fr:"Blackwood attend au pied de la colonne aux six cadrans. Rendez-vous avec un informateur qui pretend avoir des preuves contre Vane. Il attend quarante minutes. L'homme ne vient jamais - paye par Vane pour s'abstenir."},
+  {n:3,time:'15:00',loc:"Trafalgar Square - Nelson's Column",title:'The Letter Under the Paw',
+   en:"Blackwood sits at the foot of one of the great bronze lions and writes feverishly. A second letter, addressed directly to Scotland Yard. He describes Vane's scheme, the forged documents, the threats. He slides it carefully under the lion's stone paw. The letter will be found the following morning. Too late, once again.",
+   fr:"Blackwood s'assoit au pied d'un lion de bronze et ecrit feverishly une seconde lettre a Scotland Yard. Il la glisse sous la patte du lion. Elle sera retrouvee le lendemain matin. Trop tard, encore."},
+  {n:4,time:'16:00',loc:'Somerset House - The Archives',title:'The Last Documents',
+   en:"Blackwood enters the grand neoclassical courtyard of Somerset House, searching for the original copies of his will, proof that Vane has tampered with them. A bailiff watches him leave thirty minutes later, clutching a large envelope. His face is pale. This is the last place he will be seen in daylight.",
+   fr:"Blackwood entre dans la cour de Somerset House, a la recherche de son testament original. Un huissier le voit repartir, une grande enveloppe sous le bras, le visage bleme. C'est le dernier endroit ou il sera vu de jour."},
+  {n:5,time:'18:00',loc:"Cleopatra's Needle - The Embankment",title:'Something Thrown Into the Thames',
+   en:"Blackwood stands alone on the bank of the Thames, facing the ancient Egyptian obelisk. A night watchman observes from a distance: Blackwood leans over the railing and throws something into the dark water below. A copy of the forged will? A compromising document? We will never know. He turns up his collar and walks away into the fog.",
+   fr:"Blackwood se tient seul au bord de la Tamise. Un garde le voit jeter quelque chose dans l'eau sombre. Un testament falsifie? On ne le saura jamais. Il releve son col et disparait dans le brouillard."},
+  {n:6,time:'19:00',loc:'Leicester Square - The Theatre',title:'The Trap',
+   en:"Dr. Cornelius Vane has invited Blackwood to the theatre, under the pretence of reconciliation. It is a trap. During the interval, Vane pours a carefully measured dose of Laudanum, a powerful Victorian opiate, into Blackwood's glass. Blackwood drinks without suspicion. He leaves the theatre alone, staggering, convinced he is simply tired.",
+   fr:"Le Dr. Vane invite Blackwood au theatre sous pretexte de reconciliation. C'est un piege. A l'entracte, il verse du Laudanum dans le cognac de Blackwood. Celui-ci quitte le theatre seul, chancelant."},
+  {n:7,time:'21:00',loc:'The Piazza - Covent Garden',title:'The Body',
+   en:"Lord Edmund Blackwood collapses on the wet cobblestones of Covent Garden. In his clenched fist: the letter intended for Scotland Yard, never sent. A passer-by finds him and calls for help. The first doctor to arrive on the scene is Dr. Cornelius Vane. He declares natural causes. He is lying.",
+   fr:"Lord Blackwood s'effondre sur les paves mouilles de Covent Garden. Dans son poing: la lettre destinee a Scotland Yard, jamais envoyee. Le premier medecin arrive est le Dr. Vane. Il declare une mort naturelle. Il ment."},
+  {n:8,time:'-- NOW --',loc:'Scotland Yard - Criminal Investigation Division',title:'Your Mission',
+   en:"The truth has been buried. The killer walks free. But the letters exist. The witnesses exist. You are the only ones who can retrace Lord Blackwood's final steps and bring Dr. Cornelius Vane to justice. The fog is thick over London. The investigation begins now.",
+   fr:"La verite a ete enterree. Le tueur est libre. Mais les lettres existent. Vous etes les seuls a pouvoir retracer les derniers pas de Lord Blackwood. L'enquete commence maintenant."}
+];
+
+var navCur=0,voiceOn=true,musicOn=true,navAudioCtx=null,navMusicNodes=[];
+
+var navRc=document.getElementById('nav-nav-rain'),navRx=navRc.getContext('2d'),navDrops=[];
+function navInitRain(){if(!navRc)return;navRc.width=window.innerWidth;navRc.height=window.innerHeight;navDrops=[];for(var i=0;i<80;i++)navDrops.push({x:Math.random()*navRc.width,y:Math.random()*navRc.height,len:Math.random()*16+6,spd:Math.random()*2+1.5,op:Math.random()*.4+.15});}
+function navDrawRain(){if(!navRc||!navRx)return;navRx.clearRect(0,0,navRc.width,navRc.height);for(var i=0;i<navDrops.length;i++){var d=navDrops[i];navRx.globalAlpha=d.op;navRx.strokeStyle='#aabbbb';navRx.lineWidth=.5;navRx.beginPath();navRx.moveTo(d.x,d.y);navRx.lineTo(d.x-.5,d.y+d.len);navRx.stroke();d.y+=d.spd;if(d.y>navRc.height){d.y=-d.len;d.x=Math.random()*navRc.width;}}navRx.globalAlpha=1;requestAnimationFrame(navDrawRain);}
+window.addEventListener('resize',initRain);
+
+function navStartMusic(){var AC=window.AudioContext||window.webkitAudioContext;if(!AC||audioCtx)return;try{navAudioCtx=new AC();if(navAudioCtx.state==='suspended')navAudioCtx.resume();function drone(f,v,d){var o=navAudioCtx.createOscillator(),g=navAudioCtx.createGain(),fi=navAudioCtx.createBiquadFilter();fi.type='lowpass';fi.frequency.value=260;o.type='sawtooth';o.frequency.value=f;if(d)o.detune.value=d;g.gain.value=v;o.connect(fi);fi.connect(g);g.connect(navAudioCtx.destination);o.start();navMusicNodes.push(o,g,fi);}function pluck(f,t,v){var o=navAudioCtx.createOscillator(),g=navAudioCtx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,navAudioCtx.currentTime+t);g.gain.linearRampToValueAtTime(v,navAudioCtx.currentTime+t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,navAudioCtx.currentTime+t+3);o.connect(g);g.connect(navAudioCtx.destination);o.start(navAudioCtx.currentTime+t);o.stop(navAudioCtx.currentTime+t+3.5);}function noise(v){var buf=navAudioCtx.createBuffer(1,navAudioCtx.sampleRate*2,navAudioCtx.sampleRate),d=buf.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1);var s=navAudioCtx.createBufferSource();s.buffer=buf;s.loop=true;var fi=navAudioCtx.createBiquadFilter();fi.type='bandpass';fi.frequency.value=160;fi.Q.value=0.3;var g=navAudioCtx.createGain();g.gain.value=v;s.connect(fi);fi.connect(g);g.connect(navAudioCtx.destination);s.start();navMusicNodes.push(s,g,fi);}drone(55,.038,0);drone(82.4,.02,5);drone(110,.012,-3);noise(.006);var mel=[220,196,174.6,196,220,246.9,220,196,174.6,146.8,164.8,174.6],rhy=[0,1.2,2.2,3.0,4.2,5.0,6.2,7.2,8.4,9.6,10.8,12.0],lms=(rhy[rhy.length-1]+3)*1000;function loop(){if(!navAudioCtx)return;for(var i=0;i<mel.length;i++){pluck(mel[i],rhy[i],.052);pluck(mel[i]/2,rhy[i]+.04,.02);}setTimeout(loop,lms);}loop();}catch(e){navAudioCtx=null;}}
+
+function navToggleMusicBtn(){navMusicOn=!navMusicOn;var b=document.getElementById('mbtn');if(navMusicOn){navStartMusic();b.textContent='\u266b Music';b.classList.add('on');}else{navStopMusic();b.textContent='\u266b Off';b.classList.remove('on');}}
+
+function navSetVS(t){document.getElementById('vs').textContent=t;}
+function navSpeak(text){navStopSpeech();if(!navVoiceOn||!window.speechSynthesis)return;var u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.86;u.pitch=0.88;u.onstart=function(){navSetVS('Speaking...');document.getElementById('rbtn2').style.display='none';};u.onend=function(){navSetVS('Done');document.getElementById('rbtn2').style.display='inline-block';};u.onerror=function(){navSetVS('Error');};function go(){var vv=window.speechSynthesis.getVoices(),v=null;for(var i=0;i<vv.length;i++){if(vv[i].lang==='en-GB'&&vv[i].name.indexOf('Daniel')>-1){v=vv[i];break;}}if(!v)for(var i=0;i<vv.length;i++){if(vv[i].lang==='en-GB'){v=vv[i];break;}}if(!v)for(var i=0;i<vv.length;i++){if(vv[i].lang.indexOf('en')===0){v=vv[i];break;}}if(v)u.voice=v;window.speechSynthesis.speak(u);}var vv=window.speechSynthesis.getVoices();if(vv.length===0){var done=false;try{window.speechSynthesis.addEventListener('voiceschanged',function(){if(!done){done=true;go();}},{once:true});}catch(e){}setTimeout(function(){if(!done){done=true;go();}},1000);}else{go();}}
+
+function navToggleVoice(){navVoiceOn=!navVoiceOn;var b=document.getElementById('vbtn');if(navVoiceOn){b.textContent='\u{1F50A} Voice';b.classList.add('on');navSetVS('Ready');navSpeak(CARDS[navCur].en);}else{navStopSpeech();b.textContent='\u{1F507} Off';b.classList.remove('on');navSetVS('Off');}}
+function navReplayVoice(){navSpeak(CARDS[navCur].en);}
+
+function navRender(idx){var c=CARDS[idx],svg=SVGS[idx]||'';var html='<div class="ch-header"><div class="ch-num">0'+c.n+'</div><div class="ch-meta"><div class="ch-time">'+c.time+'</div><div class="ch-loc">'+c.loc+'</div></div></div>';html+='<div class="illus-wrap">'+svg+'<div class="illus-caption"><span class="ic-title">'+c.title+'</span><span class="ic-num">Chapter '+c.n+' / '+CARDS.length+'</span></div></div>';html+='<div class="panels"><div class="panel en"><div class="panel-flag">&#127468;&#127463; English</div><div class="panel-text">'+c.en+'</div></div><div class="panel fr"><div class="panel-flag">&#127467;&#127479; Francais</div><div class="panel-text">'+c.fr+'</div></div></div>';document.getElementById('page').innerHTML=html;window.scrollTo(0,0);document.getElementById('pf').style.width=(((idx+1)/CARDS.length)*100)+'%';document.getElementById('bprev').disabled=(idx===0);document.getElementById('bnext').textContent=(idx>=CARDS.length-1)?'Verdict →':'Suivant →';var dr=document.getElementById('dots');dr.innerHTML='';for(var i=0;i<CARDS.length;i++){var d=document.createElement('div');d.className='dot'+(i===idx?' cur':i<idx?' done':'');(function(ii){d.onclick=function(){navGoTo(ii);};})(i);dr.appendChild(d);}if(navVoiceOn)setTimeout(function(){navSpeak(c.en);},350);}
+
+function navNextCard(){navStopSpeech();if(navCur>=CARDS.length-1){navShowEnd();return;}navCur++;navRender(navCur);}
+function navPrevCard(){if(navCur<=0)return;navStopSpeech();navCur--;navRender(navCur);}
+function navGoTo(idx){if(idx===cur)return;navStopSpeech();navCur=idx;navRender(navCur);}
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextCard();}if(e.key==='ArrowLeft'){e.preventDefault();prevCard();}});
+
+function navShowEnd(){navStopSpeech();document.getElementById('end').classList.add('active');if(navVoiceOn&&window.speechSynthesis){setTimeout(function(){var u=new SpeechSynthesisUtterance('Who killed Lord Blackwood? The investigation begins now.');u.lang='en-GB';u.rate=0.78;u.pitch=0.82;var vv=window.speechSynthesis.getVoices(),v=null;for(var i=0;i<vv.length;i++){if(vv[i].lang==='en-GB'){v=vv[i];break;}}if(v)u.voice=v;window.speechSynthesis.speak(u);},700);}}
+function navRestart(){navStopSpeech();document.getElementById('end').classList.remove('active');navCur=0;navRender(navCur);}
+
+function navBeginStory(){
+  if(navMusicOn) navStartMusic();
+  navSetScreen('nav-story');
+  document.getElementById('nav-bnav').classList.add('active');
+  if(window.speechSynthesis){ navSetVS('Ready'); }
+  else { navSetVS('N/A'); navVoiceOn=false; var b=document.getElementById('vbtn'); if(b){b.textContent='Voice N/A';b.classList.remove('on');} }
+  navCur=0; navRender(0);
+}
+
+document.addEventListener('visibilitychange',function(){if(document.hidden){navStopMusic();navStopSpeech();}else{if(navMusicOn)navStartMusic();}});
+window.addEventListener('beforeunload',function(){navStopMusic();navStopSpeech();});
+window.addEventListener('pagehide',function(){navStopMusic();navStopSpeech();});
+
+navInitRain();
+navDrawRain();
+
+/* Fix narrative screen switching to use app-section approach */
+function navSetScreen(id) {
+  var narr = document.getElementById('narrative-section');
+  var items = narr.querySelectorAll('#nav-intro, #nav-story, #nav-end');
+  items.forEach(function(el){ el.style.display = 'none'; });
+  document.getElementById(id).style.display = 'block';
+  narr.scrollTop = 0;
+}
+
+/* Override navShowEnd */
+function navShowEndFixed() {
+  navStopSpeech();
+  navSetScreen('nav-end');
+  document.getElementById('nav-bnav').classList.remove('active');
+  if(navVoiceOn&&window.speechSynthesis){
+    setTimeout(function(){
+      var u=new SpeechSynthesisUtterance('Who killed Lord Blackwood? The investigation begins now.');
+      u.lang='en-GB';u.rate=0.78;u.pitch=0.82;
+      var vv=window.speechSynthesis.getVoices(),v=null;
+      for(var i=0;i<vv.length;i++){if(vv[i].lang==='en-GB'){v=vv[i];break;}}
+      if(v)u.voice=v;
+      window.speechSynthesis.speak(u);
+    },700);
+  }
+}
+navShowEnd = navShowEndFixed;
+
+/* Override navRestart */
+function navRestartFixed() {
+  navStopSpeech();
+  navSetScreen('nav-intro');
+  document.getElementById('nav-bnav').classList.remove('active');
+  navCur=0;
+}
+navRestart = navRestartFixed;
+
+/* ════════════════════════════════════════
+   GAME JS
+   ════════════════════════════════════════ */
+// ═══════════════════════════════════════════════
+// CLUE DATABASE — 6 locations, enriched with 3 activities each
+// ═══════════════════════════════════════════════
+
+const CLUES = {
+  ST_PAULS: {
+    id:`st_pauls`,
+    loc_fr:`📍 St Paul's Church — Côté Bedford Street, sous le portique`,
+    loc_en:`📍 St Paul's Church — Bedford Street side, under the portico`,
+    dist_fr:`⏱ 2 min du hub`,
+    dist_en:`⏱ 2 min from hub`,
+    title_fr:`L'Église des Acteurs`,
+    title_en:`The Actors' Church`,
+    ctx_fr:`Cette église du XVIIe siècle est connue comme l'église des acteurs londoniens. Son portique a servi de décor à de nombreuses pièces. La nuit du meurtre, le bedeau a trouvé un message griffonné sur un programme de spectacle.`,
+    ctx_en:`This 17th-century church is known as the actors' church. Its portico has served as a backdrop for many performances. On the night of the murder, the beadle found a message scrawled on a theatre programme.`,
+    vocab:[{fr:`église`,en:`church`},{fr:`portique`,en:`portico`},{fr:`bedeau`,en:`beadle`},{fr:`acteur`,en:`actor`},{fr:`corbeau`,en:`raven`},{fr:`gardien`,en:`keeper`}],
+    act1_fr:`🔭 OBSERVATION : Regardez la façade de l'église. Combien de colonnes soutiennent le portique ? Notez le chiffre — il servira plus tard.`,
+    act1_en:`🔭 OBSERVATION: Look at the church facade. How many columns support the portico? Write down the number — it will be useful later.`,
+    act2_fr:`📝 DÉFI LINGUISTIQUE : Lisez la plaque commémorative à l'entrée. Relevez 3 noms propres anglais qui y apparaissent et essayez de les prononcer.`,
+    act2_en:`📝 LANGUAGE CHALLENGE: Read the commemorative plaque at the entrance. Find 3 English proper nouns and practise pronouncing them.`,
+    riddle_fr:`Le message dit :\n« Sans les gardiens noirs de la Tour, le royaume tomberait. Ils comptent leurs plumes dans le brouillard. »\n\nQuel est le nom anglais de ces fameux oiseaux protégés ? (6 lettres)`,
+    riddle_en:`The message reads:\n"Without the black guardians of the Tower, the kingdom would fall. They count their feathers in the fog."\n\nWhat is the English name of these famous protected birds? (6 letters)`,
+    answer:`RAVENS`,
+    ev_fr:`🪶 Programme de théâtre — message du bedeau décodé`,
+    ev_en:`🪶 Theatre programme — beadle's message decoded`,
+    hint_fr:`Ces oiseaux noirs protègent la Tour de Londres. Si ils partent, la monarchie tomberait selon la légende.`,
+    hint_en:`These black birds protect the Tower of London. If they leave, the monarchy falls — so the legend says.`,
+    key_note:`RAVENS — oiseaux noirs de la Tour de Londres`
+  },
+  SEVEN_DIALS: {
+    id:`seven_dials`,
+    loc_fr:`📍 Seven Dials — La colonne centrale au carrefour des 7 rues`,
+    loc_en:`📍 Seven Dials — The central column at the crossroads of 7 streets`,
+    dist_fr:`⏱ 6 min du hub`,
+    dist_en:`⏱ 6 min from hub`,
+    title_fr:`Le Carrefour du Temps`,
+    title_en:`The Crossroads of Time`,
+    ctx_fr:`Cette colonne aux 6 cadrans solaires marque le carrefour de 7 rues. Blackwood avait rendez-vous ici à une heure précise. Un passant a retrouvé son carnet de notes à ses pieds.`,
+    ctx_en:`This column with 6 sundials marks the crossroads of 7 streets. Blackwood had an appointment here at a precise hour. A passer-by found his notebook at the foot of the column.`,
+    vocab:[{fr:`horloge`,en:`clock`},{fr:`cadran`,en:`dial`},{fr:`aiguille`,en:`hand`},{fr:`minuit`,en:`midnight`},{fr:`heure`,en:`hour`},{fr:`rendez-vous`,en:`appointment`}],
+    act1_fr:`🔭 OBSERVATION : La colonne a des cadrans solaires. Comptez le nombre de rues qui partent de ce carrefour. Est-ce vraiment 7 ?`,
+    act1_en:`🔭 OBSERVATION: The column has sundials. Count the number of streets radiating from this crossroads. Is it really 7?`,
+    act2_fr:`📝 DÉFI LINGUISTIQUE : En anglais, comment dit-on "Il est trois heures et demie" ? Testez votre réponse auprès du groupe avant de continuer.`,
+    act2_en:`📝 LANGUAGE CHALLENGE: In French, how do you say "It is quarter past two"? Test your answer with the group before continuing.`,
+    riddle_fr:`Le carnet dit :\n« Nous nous sommes retrouvés quand la grande aiguille touchait le 12. L'instrument qui mesure le temps — le plus universel au monde. »\n\nQuel est ce mot en anglais ? (5 lettres)`,
+    riddle_en:`The notebook reads:\n"We met when the big hand touched 12. The instrument that measures time — the most universal in the world."\n\nWhat is this word in English? (5 letters)`,
+    answer:`CLOCK`,
+    ev_fr:`⏱ Carnet de rendez-vous — heure du crime confirmée : minuit`,
+    ev_en:`⏱ Appointment notebook — time of crime confirmed: midnight`,
+    hint_fr:`Big Ben en est le plus célèbre exemple londonien. On le trouve dans les gares, les mairies, les tours.`,
+    hint_en:`Big Ben is the most famous London example. You find them in stations, town halls, towers.`,
+    key_note:`CLOCK — instrument qui mesure le temps`
+  },
+  TRAFALGAR: {
+    id:`trafalgar`,
+    loc_fr:`📍 Trafalgar Square — Base de la Colonne Nelson, près d'un lion en bronze`,
+    loc_en:`📍 Trafalgar Square — Base of Nelson's Column, near a bronze lion`,
+    dist_fr:`⏱ 10 min du hub`,
+    dist_en:`⏱ 10 min from hub`,
+    title_fr:`Les Gardiens de Bronze`,
+    title_en:`The Bronze Guardians`,
+    ctx_fr:`Ces quatre lions de bronze gardent la colonne depuis 1867. Un cireur de chaussures prétend avoir vu quelqu'un glisser une note sous la patte d'un d'eux la nuit du meurtre.`,
+    ctx_en:`These four bronze lions have guarded the column since 1867. A shoe-shiner claims to have seen someone slip a note under the paw of one of them on the night of the murder.`,
+    vocab:[{fr:`lion`,en:`lion`},{fr:`patte`,en:`paw`},{fr:`rugir`,en:`to roar`},{fr:`bronze`,en:`bronze`},{fr:`statue`,en:`statue`},{fr:`crinière`,en:`mane`}],
+    act1_fr:`🔭 OBSERVATION : Approchez-vous d'un lion. Touchez la patte (si possible). Est-il aussi grand que vous l'imaginiez ? Mesurez approximativement sa hauteur en comparant avec un membre du groupe.`,
+    act1_en:`🔭 OBSERVATION: Get close to a lion. Touch the paw (if possible). Is it as large as you imagined? Roughly estimate its height by comparing it to a group member.`,
+    act2_fr:`📝 DÉFI LINGUISTIQUE : Le lion est le symbole de l'Angleterre. Trouvez 3 endroits visibles depuis ici où apparaît un lion (statue, drapeau, enseigne...).`,
+    act2_en:`📝 LANGUAGE CHALLENGE: The lion is England's symbol. Find 3 places visible from here where a lion appears (statue, flag, sign...).`,
+    riddle_fr:`La note dit :\n« La bête qui rugit mais ne parle pas, qui protège les rois mais n'est pas humaine, qui figure sur les armoiries royales anglaises. »\n\nQuel est son nom en anglais ? (4 lettres)`,
+    riddle_en:`The note reads:\n"The beast that roars but does not speak, that protects kings but is not human, that appears on the English royal coat of arms."\n\nWhat is its name in English? (4 letters)`,
+    answer:`LION`,
+    ev_fr:`🦁 Note sous la patte du lion — écriture du Dr. Vane identifiée`,
+    ev_en:`🦁 Note under the lion's paw — Dr. Vane's handwriting identified`,
+    hint_fr:`Il y en a quatre ici, en bronze. C'est l'animal symbole de l'Angleterre depuis le Moyen-Age.`,
+    hint_en:`There are four of them here, in bronze. It has been England's symbol since the Middle Ages.`,
+    key_note:`LION — animal symbole de l'Angleterre`
+  },
+  SOMERSET: {
+    id:`somerset`,
+    loc_fr:`📍 Somerset House — Grande cour néoclassique, côté fontaines`,
+    loc_en:`📍 Somerset House — Grand neoclassical courtyard, fountain side`,
+    dist_fr:`⏱ 8 min du hub`,
+    dist_en:`⏱ 8 min from hub`,
+    title_fr:`Le Témoin de la Cour`,
+    title_en:`The Courtyard Witness`,
+    ctx_fr:`Cette cour majestueuse abritait les bureaux du gouvernement victorien. Un huissier affirme avoir vu Blackwood remettre une enveloppe à un homme à l'air austère. Il a tout consigné dans un rapport officiel.`,
+    ctx_en:`This majestic courtyard housed Victorian government offices. A bailiff claims to have seen Blackwood hand an envelope to a stern-looking man. He recorded everything in an official report.`,
+    vocab:[{fr:`témoin`,en:`witness`},{fr:`témoignage`,en:`testimony`},{fr:`huissier`,en:`bailiff`},{fr:`rapport`,en:`report`},{fr:`voir`,en:`to see`},{fr:`décrire`,en:`to describe`}],
+    act1_fr:`🔭 OBSERVATION : Regardez les inscriptions latines sur la façade. Repérez un mot latin qui ressemble à un mot français ou anglais. Lequel ? Que signifie-t-il ?`,
+    act1_en:`🔭 OBSERVATION: Look at the Latin inscriptions on the facade. Find a Latin word that looks like a French or English word. Which one? What does it mean?`,
+    act2_fr:`📝 DÉFI LINGUISTIQUE : Le huissier décrit le suspect : "He was tall, wearing a dark coat and a top hat." Traduisez cette phrase en français et décrivez quelqu'un dans le groupe de la même façon en anglais.`,
+    act2_en:`📝 LANGUAGE CHALLENGE: The bailiff describes the suspect. Translate this into French: "He was tall, wearing a dark coat and a top hat." Then describe someone in your group the same way in English.`,
+    riddle_fr:`Le rapport dit :\n« J'ai tout observé. Je suis le seul _____ de cette scène. Sans moi, il n'y a pas de procès possible. »\n\nQuel est ce mot en anglais ? (7 lettres)\nC'est une personne qui a vu les faits se produire.`,
+    riddle_en:`The report states:\n"I observed everything. I am the only _____ to this scene. Without me, there can be no trial."\n\nWhat is this word in English? (7 letters)\nIt refers to someone who has seen events happen.`,
+    answer:`WITNESS`,
+    ev_fr:`📄 Rapport de l'huissier — description du Dr. Vane correspondante`,
+    ev_en:`📄 Bailiff's report — description matches Dr. Vane`,
+    hint_fr:`En justice, cette personne a vu les faits et peut en témoigner devant le tribunal.`,
+    hint_en:`In court, this person has seen the facts and can testify about them before a judge.`,
+    key_note:`WITNESS — témoin oculaire`
+  },
+  EMBANKMENT: {
+    id:`embankment`,
+    loc_fr:`📍 Cleopatra's Needle — Obélisque sur la rive de la Tamise, Victoria Embankment`,
+    loc_en:`📍 Cleopatra's Needle — Obelisk on the Thames bank, Victoria Embankment`,
+    dist_fr:`⏱ 12 min du hub`,
+    dist_en:`⏱ 12 min from hub`,
+    title_fr:`L'Arme Venue du Nil`,
+    title_en:`The Weapon from the Nile`,
+    ctx_fr:`Cet obélisque de 3 500 ans garde les rives de la Tamise. Un garde de nuit a trouvé un flacon brisé à ses pieds. Le médecin légiste a conclu à un empoisonnement.`,
+    ctx_en:`This 3,500-year-old obelisk guards the Thames banks. A night watchman found a broken vial at its foot. The forensic doctor concluded it was a case of poisoning.`,
+    vocab:[{fr:`poison`,en:`poison`},{fr:`flacon`,en:`vial`},{fr:`substance`,en:`substance`},{fr:`mortel`,en:`deadly`},{fr:`dose`,en:`dose`},{fr:`enquête`,en:`investigation`}],
+    act1_fr:`🔭 OBSERVATION : Regardez les deux sphinx qui flanquent l'obélisque. Ils ont des dommages visibles — traces de la Première Guerre mondiale. Pouvez-vous les repérer ?`,
+    act1_en:`🔭 OBSERVATION: Look at the two sphinxes flanking the obelisk. They have visible damage — traces from World War One. Can you spot them?`,
+    act2_fr:`📝 DÉFI LINGUISTIQUE : Le rapport légiste est en anglais : "The victim ingested a lethal substance dissolved in alcohol." Traduisez cette phrase. Quel mot savant reconnaissez-vous ?`,
+    act2_en:`📝 LANGUAGE CHALLENGE: The forensic report is in French: "La victime a ingéré une substance mortelle dissoute dans de l'alcool." Translate this sentence. Which scientific word do you recognise?`,
+    riddle_fr:`Le rapport légiste dit :\n« Ce n'est pas un couteau, ce n'est pas une balle. Invisible dans le cognac, mortel en petite dose. Le coupable connaissait la chimie. »\n\nComment appelle-t-on cette méthode en anglais ? (6 lettres)`,
+    riddle_en:`The forensic report states:\n"It is not a knife, it is not a bullet. Invisible in cognac, deadly in a small dose. The culprit knew their chemistry."\n\nWhat is this method called in English? (6 letters)`,
+    answer:`POISON`,
+    ev_fr:`⚗️ Flacon brisé analysé — Laudanum identifié`,
+    ev_en:`⚗️ Broken vial analysed — Laudanum identified`,
+    hint_fr:`C'est ce qu'on peut mettre discrètement dans une boisson pour tuer quelqu'un. En 6 lettres, même mot en français et en anglais.`,
+    hint_en:`It is what can be secretly added to a drink to kill someone. 6 letters — almost the same word in French and English.`,
+    key_note:`POISON — même mot en FR et EN`
+  },
+  LEICESTER: {
+    id:`leicester`,
+    loc_fr:`📍 Leicester Square — Jardin central, statue de Shakespeare`,
+    loc_en:`📍 Leicester Square — Central garden, Shakespeare's statue`,
+    dist_fr:`⏱ 8 min du hub`,
+    dist_en:`⏱ 8 min from hub`,
+    title_fr:`Le Faux Alibi`,
+    title_en:`The False Alibi`,
+    ctx_fr:`Le Dr. Vane prétend avoir assisté à une pièce ici ce soir-là. Mais le directeur du théâtre dit le contraire — et la liste des présents a été partiellement effacée.`,
+    ctx_en:`Dr. Vane claims to have attended a play here that evening. But the theatre director says otherwise — and the attendance list has been partially erased.`,
+    vocab:[{fr:`alibi`,en:`alibi`},{fr:`mentir`,en:`to lie`},{fr:`innocent`,en:`innocent`},{fr:`coupable`,en:`guilty`},{fr:`preuve`,en:`evidence`},{fr:`effacer`,en:`to erase`}],
+    act1_fr:`🔭 OBSERVATION : La statue de Shakespeare pointe le doigt vers quelque chose. Dans quelle direction pointe-t-il ? Qu'y a-t-il dans cette direction ?`,
+    act1_en:`🔭 OBSERVATION: Shakespeare's statue points its finger at something. Which direction is it pointing? What is there in that direction?`,
+    act2_fr:`📝 DÉFI LINGUISTIQUE : Devant ce théâtre, imaginez que vous êtes le directeur. Déclarez en anglais : "Dr. Vane was NOT here on the night of November 9th. I am certain." Maintenant dites la même chose en français.`,
+    act2_en:`📝 LANGUAGE CHALLENGE: Imagine you are the theatre director. Declare in French: "Le Dr. Vane n'était PAS ici le soir du 9 novembre. J'en suis certain." Now say the same thing in English.`,
+    riddle_fr:`La liste dit :\n« Son histoire ne tient pas. Ce qu'il prétend avoir, il ne l'avait pas. »\n\nEn droit, un _____ est une preuve qu'on se trouvait ailleurs au moment du crime.\nQuel est ce mot en anglais ? (5 lettres)`,
+    riddle_en:`The list says:\n"His story doesn't hold. What he claims to have — he didn't have it."\n\nIn law, an _____ is proof that you were somewhere else at the time of the crime.\nWhat is this word in English? (5 letters)`,
+    answer:`ALIBI`,
+    ev_fr:`📋 Liste effacée + témoignage du directeur — alibi du Dr. Vane détruit`,
+    ev_en:`📋 Erased list + director's testimony — Dr. Vane's alibi destroyed`,
+    hint_fr:`Ce mot latin est identique en français et en anglais. Il signifie "ailleurs".`,
+    hint_en:`This Latin word is identical in French and English. It means "elsewhere".`,
+    key_note:`ALIBI — même mot en FR et EN`
+  }
+};
+
+// HUB final clue — same for everyone, done at Covent Garden
+const HUB_CLUE = {
+  id:`hub`,
+  loc_fr:`📍 La Piazza, Covent Garden — Hub central, tous réunis`,
+  loc_en:`📍 The Piazza, Covent Garden — Central hub, all together`,
+  dist_fr:``,
+  dist_en:``,
+  title_fr:`La Lettre de Blackwood`,
+  title_en:`Blackwood's Final Letter`,
+  ctx_fr:`Toutes les équipes sont réunies. Mettez vos preuves en commun. La lettre retrouvée dans la main de Lord Blackwood était adressée à son avocat — il avait tout compris. Un seul mot manque pour fermer le dossier.`,
+  ctx_en:`All teams are gathered. Pool your evidence together. The letter found in Lord Blackwood's hand was addressed to his lawyer — he had figured it all out. One word is missing to close the case.`,
+  vocab:[{fr:`coupable`,en:`guilty`},{fr:`innocent`,en:`innocent`},{fr:`verdict`,en:`verdict`},{fr:`procès`,en:`trial`},{fr:`condamner`,en:`to convict`},{fr:`accusé`,en:`defendant`}],
+  act1_fr:`🔭 MISE EN COMMUN : Chaque équipe présente sa preuve principale en ANGLAIS. Une phrase minimum. Les autres prennent note.`,
+  act1_en:`🔭 POOLING EVIDENCE: Each team presents their main piece of evidence in FRENCH. At least one sentence. Others take notes.`,
+  act2_fr:`📝 DÉBAT : Qui sont les suspects ? Chaque équipe donne son avis en anglais. Commencez par "I think the murderer is... because..."`,
+  act2_en:`📝 DEBATE: Who are the suspects? Each team gives their opinion in French. Start with "Je pense que le meurtrier est... parce que..."`,
+  riddle_fr:`La lettre dit :\n« Celui qui a fait cela est _____. J'en ai la preuve absolue. »\n\nTraduisez le mot COUPABLE en anglais. (6 lettres)\nC'est votre mot de passe final pour Scotland Yard.`,
+  riddle_en:`The letter reads:\n"The one who did this is _____. I have absolute proof."\n\nTranslate the word COUPABLE into English. (6 letters)\nThis is your final password for Scotland Yard.`,
+  answer:`GUILTY`,
+  ev_fr:`✉️ Lettre de Blackwood — identité du coupable confirmée`,
+  ev_en:`✉️ Blackwood's letter — culprit's identity confirmed`,
+  hint_fr:`C'est l'adjectif prononcé par le jury quand il condamne quelqu'un. Son contraire est "innocent".`,
+  hint_en:`It is the adjective announced by the jury when convicting someone. Its opposite is "innocent".`,
+  key_note:`GUILTY — traduction de COUPABLE`
+};
+
+// ═══════════════════════════════════════════════
+// ROTATION TABLE — each group visits 3 different locations
+// then returns to hub for final clue
+// Groups never visit the same location at the same time
+// ═══════════════════════════════════════════════
+// 6 locations: ST_PAULS, SEVEN_DIALS, TRAFALGAR, SOMERSET, EMBANKMENT, LEICESTER
+// Each group gets 3 of them in a unique order
+
+const ROUTES = {
+  1: [`ST_PAULS`,   `TRAFALGAR`,  `SOMERSET`],
+  2: [`SEVEN_DIALS`,`EMBANKMENT`, `LEICESTER`],
+  3: [`TRAFALGAR`,  `SOMERSET`,   `ST_PAULS`],
+  4: [`EMBANKMENT`, `LEICESTER`,  `SEVEN_DIALS`],
+  5: [`SOMERSET`,   `ST_PAULS`,   `TRAFALGAR`],
+  6: [`LEICESTER`,  `SEVEN_DIALS`,`EMBANKMENT`]
+};
+
+const GROUP_COLORS = {1:`var(--g1)`,2:`var(--g2)`,3:`var(--g3)`,4:`var(--g4)`,5:`var(--g5)`,6:`var(--g6)`};
+const GROUP_NAMES = {1:`Équipe Rouge`,2:`Équipe Orange`,3:`Équipe Or`,4:`Équipe Verte`,5:`Équipe Bleue`,6:`Équipe Violette`};
+
+// ═══════ STATE ═══════
+let S = {group:null, lang:`fr`, solved:[], suspect:null, timerRef:null};
+
+// ═══════ LANG ═══════
+function setL(l) {
+  S.lang = l;
+  document.getElementById(`bfr`).classList.toggle(`AL`, l===`fr`);
+  document.getElementById(`ben`).classList.toggle(`AL`, l===`en`);
+  applyLang();
+}
+
+function applyLang() {
+  const f = S.lang===`fr`;
+  document.getElementById(`ey1`).textContent = f ? `Scotland Yard — Division des Enquêtes Criminelles` : `Scotland Yard — Criminal Investigation Division`;
+  document.getElementById(`ey2`).textContent = f ? `Une enquête bilingue · A bilingual investigation` : `A bilingual investigation · Une enquête bilingue`;
+  document.getElementById(`dref`).textContent = f ? `Réf. SCY-1888 · Dossier Confidentiel · 3ème — Camille Sée` : `Ref. SCY-1888 · Confidential File · Year 9 — Camille Sée`;
+  document.getElementById(`dtitle`).textContent = f ? `⚠ Avis aux inspecteurs stagiaires` : `⚠ Notice to Trainee Inspectors`;
+  document.getElementById(`dp1`).innerHTML = f
+    ? `<strong>Date :</strong> Nuit du 9 novembre — Brouillard épais sur la Tamise.<br><strong>Victime :</strong> Lord Edmund Blackwood, riche marchand de la City.`
+    : `<strong>Date:</strong> Night of 9th November — thick fog over the Thames.<br><strong>Victim:</strong> Lord Edmund Blackwood, wealthy City merchant.`;
+  document.getElementById(`dp2`).innerHTML = f
+    ? `Retrouvé sans vie près de <em>Covent Garden</em>. Son meurtrier court toujours. Vous avez <strong>2 heures</strong>.`
+    : `Found dead near <em>Covent Garden</em>. His murderer is still at large. You have <strong>2 hours</strong>.`;
+  document.getElementById(`dp3`).innerHTML = f
+    ? `<strong>Mode :</strong> 3 balises par équipe · Retour au hub entre chaque · Verdict collectif final`
+    : `<strong>Mode:</strong> 3 clue locations per team · Return to hub between each · Final collective verdict`;
+  document.getElementById(`infotxt`).innerHTML = f
+    ? `<strong>Parcours en étoile — 3 balises par équipe</strong><br>Hub central : <strong>La Piazza, Covent Garden</strong>. Chaque équipe visite <strong>3 lieux</strong> dans un ordre différent, résout une énigme à chaque arrêt, et revient au hub entre chaque balise. Les adultes restent au hub.`
+    : `<strong>Star-shaped route — 3 clue locations per team</strong><br>Central hub: <strong>The Piazza, Covent Garden</strong>. Each team visits <strong>3 locations</strong> in a different order, solves a riddle at each stop, and returns to the hub between each one. Adults stay at the hub.`;
+  document.getElementById(`glbl`).textContent = f ? `— Sélectionnez votre équipe / Choose your team —` : `— Choose your team / Sélectionnez votre équipe —`;
+  if (S.group && document.getElementById(`mission`).classList.contains(`active`)) buildTabs();
+}
+
+// ═══════ GROUP SELECT ═══════
+function selG(n) {
+  S.group = n;
+  document.querySelectorAll(`.gbtn`).forEach(b => b.classList.remove(`sel`));
+  document.querySelector(`.gbtn[data-g="${n}"]`).classList.add(`sel`);
+  document.getElementById(`startBtn`).style.display = `inline-block`;
+}
+
+function startGame() {
+  if (!S.group) return;
+  showS(`mission`);
+  buildTabs();
+  startTimer();
+}
+
+// ═══════ BUILD MISSION TABS ═══════
+function buildTabs() {
+  const route = ROUTES[S.group];
+  const f = S.lang===`fr`;
+  const color = GROUP_COLORS[S.group];
+  const nav = document.getElementById(`snav`);
+  const cont = document.getElementById(`tcont`);
+
+  document.getElementById(`hudg`).style.color = color;
+  document.getElementById(`hudg`).textContent = GROUP_NAMES[S.group];
+
+  // All clue ids for this group: 3 branches + hub
+  const allIds = [...route, `hub`];
+  const done = S.solved.length;
+  document.getElementById(`hudp`).textContent = `${Math.min(done,3)}/3 ${f?`balises`:`stops`}`;
+  document.getElementById(`pfill`).style.width = `${(done/4)*100}%`;
+
+  nav.innerHTML = ``;
+  cont.innerHTML = ``;
+
+  allIds.forEach((key, i) => {
+    const c = key===`hub` ? HUB_CLUE : CLUES[key];
+    const solved = S.solved.includes(c.id);
+    const isHub = key===`hub`;
+
+    // Tab
+    const tab = document.createElement(`button`);
+    tab.className = `stab${i===0?` cur`:``}${solved?` done`:``}`;
+    if (i===0 && !solved) tab.style.borderColor = color;
+    tab.textContent = isHub ? (f?`Hub final`:`Final hub`) : `${f?`Balise`:`Stop`} ${i+1}`;
+    tab.onclick = () => swTab(i, allIds.length);
+    nav.appendChild(tab);
+
+    // Content
+    const div = document.createElement(`div`);
+    div.className = `tbody${i===0?` cur`:``}`;
+    div.id = `tb${i}`;
+
+    // Lock hub until 3 branch clues solved
+    if (isHub && S.solved.filter(id => id!==`hub`).length < 3) {
+      div.innerHTML = `<div class="ret-banner">
+        <p>🔒 <strong>${f?`Retournez au hub !`:`Return to the hub!`}</strong><br>
+        ${f?`Résolvez les 3 balises, puis revenez à la Piazza de Covent Garden pour le verdict final.`:`Complete all 3 stops, then return to the Piazza at Covent Garden for the final verdict.`}</p>
+      </div>`;
+    }
+    // Show return-to-hub banner between branch clues
+    else if (!isHub && i > 0 && !S.solved.includes(CLUES[route[i-1]]?.id || ``) && i < 3) {
+      div.innerHTML = buildCard(c, i, solved, f, color);
+    } else {
+      div.innerHTML = buildCard(c, i, solved, f, color);
+    }
+
+    // Insert return banner after each solved branch (before next)
+    if (!isHub && solved && i < 2) {
+      const nextKey = route[i+1];
+      const nextSolved = S.solved.includes(CLUES[nextKey].id);
+      if (!nextSolved) {
+        const banner = document.createElement(`div`);
+        banner.innerHTML = `<div class="ret-banner" style="margin-bottom:.8rem">
+          <p>✓ <strong>${f?`Balise résolue ! Retournez au hub.`:`Stop solved! Return to the hub.`}</strong><br>
+          ${f?`Les coordinateurs vous indiqueront votre prochaine balise.`:`The coordinators will direct you to your next stop.`}</p>
+        </div>`;
+        div.prepend(banner.firstChild);
+      }
+    }
+
+    cont.appendChild(div);
+  });
+}
+
+function buildCard(c, idx, solved, f, color) {
+  const vhtml = c.vocab.map(v =>
+    '<span class="vchip"><span class="vf">' + v.fr + '</span> \u2192 <span class="ve">' + v.en + '</span></span>'
+  ).join('');
+
+  const locLine = (f ? c.loc_fr : c.loc_en) + (c.dist_fr ? '<span class="lsub">' + (f ? c.dist_fr : c.dist_en) + '</span>' : '');
+  const stepColor = solved ? 'var(--ok)' : color;
+  const solvedBadge = solved ? '<div class="sbadge">\u2713 ' + (f ? 'R\u00c9SOLU' : 'SOLVED') + '</div>' : '';
+  const evLine = '<div class="fb ok">\u2713 ' + (f ? 'Preuve recueillie' : 'Evidence collected') + ' : ' + (f ? c.ev_fr : c.ev_en) + '</div>';
+
+  const act1 = f ? c.act1_fr : c.act1_en;
+  const act2 = f ? c.act2_fr : c.act2_en;
+  const act1lbl = f ? 'ACTIVIT\u00c9 1' : 'ACTIVITY 1';
+  const act2lbl = f ? 'ACTIVIT\u00c9 2' : 'ACTIVITY 2';
+  const vocabLbl = f ? 'Vocabulaire cl\u00e9' : 'Key vocabulary';
+  const actLbl = f ? 'Activit\u00e9s sur place' : 'On-site activities';
+  const riddleLbl = f ? '\u00c9nigme finale \u2014 Riddle' : 'Final riddle \u2014 \u00c9nigme';
+  const hintLbl = f ? 'Indice / Hint' : 'Hint / Indice';
+  const placeholder = f ? 'R\u00c9PONSE EN ANGLAIS\u2026' : 'ANSWER IN ENGLISH\u2026';
+  const submitLbl = f ? 'VALIDER' : 'SUBMIT';
+
+  const riddleFr = c.riddle_fr.replace(/\n/g, '<br>');
+  const riddleEn = c.riddle_en.replace(/\n/g, '<br>');
+  const hintFr = c.hint_fr.replace(/"/g, '&quot;');
+  const hintEn = c.hint_en.replace(/"/g, '&quot;');
+
+  let answerBlock;
+  if (solved) {
+    answerBlock = evLine;
+  } else {
+    answerBlock = '<div class="arow">'
+      + '<input class="ainput" id="ai' + c.id + '" type="text" maxlength="12" placeholder="' + placeholder + '" onkeydown="if(event.key===\'Enter\')chk(\'' + c.id + '\')">'
+      + '<button class="abtn" onclick="chk(\'' + c.id + '\')">' + submitLbl + '</button>'
+      + '</div>'
+      + '<div class="fb" id="fb' + c.id + '"></div>'
+      + '<button class="hintbtn" data-id="' + c.id + '" data-hfr="' + hintFr + '" data-hen="' + hintEn + '" onclick="hintFromBtn(this)">&#128161; ' + hintLbl + '</button>';
+  }
+
+  return '<div class="ccard' + (solved ? ' solved' : '') + '" id="cc' + c.id + '">'
+    + solvedBadge
+    + '<div class="cstep" style="color:' + stepColor + '">' + locLine + '</div>'
+    + '<div class="ctitle">' + c.title_fr + '</div>'
+    + '<div class="ctitle-en">' + c.title_en + '</div>'
+    + '<div class="biblock">'
+      + '<div class="bicol fr"><div class="biflag">&#127467;&#127479; FRAN\u00c7AIS</div>' + c.ctx_fr + '</div>'
+      + '<div class="bicol"><div class="biflag">&#127468;&#127463; ENGLISH</div>' + c.ctx_en + '</div>'
+    + '</div>'
+    + '<div class="vocab"><div class="vtitle">&#128214; ' + vocabLbl + '</div><div class="vgrid">' + vhtml + '</div></div>'
+    + '<div class="activities">'
+      + '<div class="act-title">&#127919; ' + actLbl + '</div>'
+      + '<div class="act-item"><span class="act-num">' + act1lbl + '</span>' + act1 + '</div>'
+      + '<div class="act-item"><span class="act-num">' + act2lbl + '</span>' + act2 + '</div>'
+    + '</div>'
+    + '<div class="riddle">'
+      + '<div class="rlabel">&#128270; ' + riddleLbl + '</div>'
+      + '<div class="rbi">'
+        + '<div class="rfr">' + riddleFr + '</div>'
+        + '<div class="ren">' + riddleEn + '</div>'
+      + '</div>'
+    + '</div>'
+    + answerBlock
+    + '</div>';
+}
+
+function swTab(i, total) {
+  document.querySelectorAll(`.stab`).forEach((t,j) => t.classList.toggle(`cur`, i===j));
+  document.querySelectorAll(`.tbody`).forEach((b,j) => b.classList.toggle(`cur`, i===j));
+}
+
+// ═══════ ANSWER CHECK ═══════
+function chk(cid) {
+  const inp = document.getElementById(`ai${cid}`);
+  const fb  = document.getElementById(`fb${cid}`);
+  const f   = S.lang===`fr`;
+  const val = inp.value.trim().toUpperCase();
+
+  const clue = cid===`hub` ? HUB_CLUE : Object.values(CLUES).find(c => c.id===cid);
+  if (!clue) return;
+
+  if (val === clue.answer) {
+    fb.textContent = `✓ ${f?`Exact ! Preuve recueillie`:`Correct! Evidence collected`} : ${f?clue.ev_fr:clue.ev_en}`;
+    fb.className = `fb ok`;
+    if (!S.solved.includes(cid)) S.solved.push(cid);
+    inp.disabled = true;
+    inp.closest(`.ccard`).classList.add(`solved`);
+    inp.nextElementSibling.disabled = true;
+
+    const card = document.getElementById(`cc${cid}`);
+    if (card && !card.querySelector(`.sbadge`)) {
+      const b = document.createElement(`div`); b.className=`sbadge`;
+      b.textContent=`✓ ${f?`RÉSOLU`:`SOLVED`}`; card.appendChild(b);
+    }
+
+    buildTabs();
+
+    if (S.solved.length >= 4) {
+      setTimeout(() => {
+        if (confirm(f?`🎉 Enquête complète ! Passer au verdict ?`:`🎉 Investigation complete! Go to verdict?`)) {
+          showS(`finale`); buildEv();
+        }
+      }, 600);
+    }
+  } else {
+    fb.textContent = `✗ ${f?`Mauvaise réponse. Relisez l'énigme.`:`Wrong answer. Re-read the riddle.`}`;
+    fb.className = `fb ko`;
+    inp.style.borderColor = `var(--blood)`;
+    setTimeout(() => inp.style.borderColor=``,1500);
+  }
+}
+
+function hintFromBtn(btn) {
+  const cid = btn.dataset.id;
+  const fb = document.getElementById(`fb${cid}`);
+  fb.innerHTML = `💡 <em>${S.lang===`fr` ? btn.dataset.hfr : btn.dataset.hen}</em>`;
+  fb.className = `fb`; fb.style.color = `var(--gold)`;
+}
+
+// ═══════ TIMER ═══════
+function startTimer() {
+  const end = Date.now() + 2*60*60*1000;
+  S.timerRef = setInterval(() => {
+    const r = Math.max(0, end - Date.now());
+    const h=Math.floor(r/3600000), m=Math.floor((r%3600000)/60000), s=Math.floor((r%60000)/1000);
+    const str = `${h}:${String(m).padStart(2,`0`)}:${String(s).padStart(2,`0`)}`;
+    const ht = document.getElementById(`hudt`);
+    const ct = document.getElementById(`coordTimer`);
+    if (ht) ht.textContent = str;
+    if (ct) ct.textContent = str;
+    if (!r) clearInterval(S.timerRef);
+  }, 1000);
+}
+
+// ═══════ FINALE ═══════
+function buildEv() {
+  const f = S.lang===`fr`;
+  const route = ROUTES[S.group] || [];
+  const allIds = [...route.map(k => CLUES[k].id), `hub`];
+  const list = document.getElementById(`evlist`);
+  const items = [];
+  allIds.forEach(id => {
+    if (S.solved.includes(id)) {
+      const c = id===`hub` ? HUB_CLUE : Object.values(CLUES).find(x => x.id===id);
+      if (c) items.push(f?c.ev_fr:c.ev_en);
+    }
+  });
+  list.innerHTML = items.length
+    ? items.map(e=>`<div class="evtag">${e}</div>`).join(``)
+    : `<span style="color:#333;font-style:italic;font-size:.74rem">${f?`Aucune preuve recueillie.`:`No evidence collected.`}</span>`;
+}
+
+function pickS(el, name) {
+  document.querySelectorAll(`.sus`).forEach(s => s.classList.remove(`pk`));
+  el.classList.add(`pk`); S.suspect = name;
+  document.getElementById(`accbtn`).disabled = false;
+}
+
+function accuse() {
+  const f = S.lang===`fr`;
+  const ok = S.suspect===`Dr. Cornelius Vane`;
+  const rev = document.getElementById(`reveal`);
+  rev.className = ok?`rev-ok`:`rev-ko`;
+  rev.style.display = `block`; rev.scrollIntoView({behavior:`smooth`});
+  if (ok) {
+    rev.innerHTML = `<h3>✓ <em>${f?`Accusation correcte !`:`Correct accusation!`}</em></h3>
+    <p>${f?`Le <strong>Dr. Cornelius Vane</strong> est bien le coupable. Médecin personnel de Blackwood, il avait accès à tout — cuisine, cave, prescriptions. Endetté après de mauvaises spéculations, il a versé du Laudanum dans le cognac de son patient lors d'une soirée au club. Blackwood avait tout compris et écrit à son avocat. Trop tard.`
+    :`<strong>Dr. Cornelius Vane</strong> is indeed the culprit. Blackwood's personal physician had access to everything — kitchen, cellar, prescriptions. Deep in debt after failed speculations, he poured Laudanum into his patient's cognac at a club evening. Blackwood had figured it all out and written to his lawyer. Too late.`}</p>
+    <p><strong>🏆 ${f?`Félicitations, inspecteurs de Camille Sée !`:`Congratulations, inspectors from Camille Sée!`}</strong></p>`;
+  } else {
+    rev.innerHTML = `<h3>✗ <em>${f?`Mauvaise piste…`:`Wrong lead…`}</em></h3>
+    <p>${f?`<strong>${S.suspect}</strong> n'est pas le coupable. Relisez vos preuves. Tous les indices pointaient vers <strong>Dr. Cornelius Vane</strong>.`
+    :`<strong>${S.suspect}</strong> is not the culprit. Re-read your evidence. All clues pointed to <strong>Dr. Cornelius Vane</strong>.`}</p>`;
+  }
+}
+
+// ═══════ COORD LOGIN ═══════
+function checkPwd() {
+  const val = document.getElementById(`pwdInput`).value;
+  if (val === `teamblood`) {
+    document.getElementById(`pwdErr`).style.display = `none`;
+    document.getElementById(`pwdInput`).value = ``;
+    buildCoord();
+    showS(`coord`);
+    if (!S.timerRef) startTimer();
+  } else {
+    const err = document.getElementById(`pwdErr`);
+    err.style.display = `block`;
+    err.textContent = `Mot de passe incorrect. / Wrong password.`;
+    setTimeout(()=>err.style.display=`none`, 2500);
+  }
+}
+
+// ═══════ COORD DASHBOARD ═══════
+function buildCoord() {
+  buildTeamRows();
+  buildKeyGrid();
+}
+
+function buildTeamRows() {
+  const wrap = document.getElementById(`teamRows`);
+  wrap.innerHTML = ``;
+
+  for (let g=1; g<=6; g++) {
+    const route = ROUTES[g];
+    const color = GROUP_COLORS[g];
+    const name = GROUP_NAMES[g];
+    const solved = route.filter(k => S.solved.includes(CLUES[k].id));
+    const hubSolved = S.solved.includes(`hub`);
+    const total = 3;
+    const done = Math.min(solved.length, total);
+    const allBranchDone = done === total;
+    const fullyDone = allBranchDone && hubSolved;
+
+    // Determine next destination
+    let nextDest = ``;
+    let badgeClass = `waiting`;
+    if (fullyDone) {
+      nextDest = `✓ Terminé / Done`;
+      badgeClass = `done-all`;
+    } else if (allBranchDone) {
+      nextDest = `→ Hub : verdict final`;
+      badgeClass = `go`;
+    } else {
+      const nextKey = route[done];
+      const nextClue = CLUES[nextKey];
+      nextDest = `→ ${nextClue.loc_fr.replace(`📍 `,``).split(` — `)[0]}`;
+      badgeClass = `go`;
+    }
+
+    // Progress dots
+    let dots = ``;
+    for (let i=0;i<3;i++) {
+      const clueId = CLUES[route[i]].id;
+      const isDone = S.solved.includes(clueId);
+      const isCur = !isDone && S.solved.filter(id=>id!==`hub`).length===i;
+      dots += `<div class="dot${isDone?` done`:isCur?` cur`:``}" title="${CLUES[route[i]].title_fr}"></div>`;
+    }
+    dots += `<div class="dot${hubSolved?` done`:allBranchDone?` cur`:``}" title="Hub final"></div>`;
+
+    wrap.innerHTML += `
+      <div class="team-row">
+        <div class="team-color" style="background:${color}"></div>
+        <div class="team-info">
+          <div class="team-name" style="color:${color}">${name}</div>
+          <div class="team-status">${done}/3 balises · ${fullyDone?`Complet`:`En cours`}</div>
+          <div class="team-progress" style="margin-top:.4rem">${dots}</div>
+        </div>
+        <div class="next-badge ${badgeClass}">${nextDest}</div>
+      </div>`;
+  }
+}
+
+function buildKeyGrid() {
+  const grid = document.getElementById(`keyGrid`);
+  const allClues = [...Object.values(CLUES), HUB_CLUE];
+  grid.innerHTML = allClues.map(c => `
+    <div class="key-card">
+      <div class="key-loc">${c.loc_fr.replace(`📍 `,``).split(` — `)[0]}</div>
+      <div class="key-ans">${c.answer}</div>
+      <div class="key-note">${c.key_note}</div>
+    </div>`
+  ).join(``);
+}
+
+// ═══════ NAV ═══════
+function showS(id) {
+  document.querySelectorAll(`.screen`).forEach(s=>s.classList.remove(`active`));
+  document.getElementById(id).classList.add(`active`);
+  window.scrollTo(0,0);
+  // Update coord dashboard if going there
+  if (id===`coord`) buildCoord();
+  if (id===`mission`) buildTabs();
+}
+
+// Init
+showS(`intro`);
+
+/* ════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════ */
+// Init narrative - wait for DOM
+window.addEventListener('load', function() {
+  var rainEl = document.getElementById('nav-rain');
+  if (rainEl) { navInitRain(); navDrawRain(); }
+});
+
+// Set initial narrative screen states
+document.getElementById('nav-intro').style.display = 'block';
+document.getElementById('nav-story').style.display = 'none';
+document.getElementById('nav-end').style.display = 'none';
+
+// Keyboard navigation (narrative only when narrative visible)
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('narrative-section').classList.contains('visible')) return;
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();navNextCard();}
+  if(e.key==='ArrowLeft'){e.preventDefault();navPrevCard();}
+});
+
+// Stop narrative audio when switching to game
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden){
+    navStopMusic();
+    navStopSpeech();
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
+  } else {
+    if(navMusicOn && document.getElementById('narrative-section').classList.contains('visible')) navStartMusic();
+  }
+});
+window.addEventListener('beforeunload', function(){ navStopMusic(); navStopSpeech(); });
+window.addEventListener('pagehide', function(){ navStopMusic(); navStopSpeech(); });
+
+</script>
+</body>
+</html>
