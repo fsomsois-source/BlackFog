@@ -446,6 +446,56 @@ body::after{content:'';position:fixed;inset:0;opacity:.4;background-image:url("d
 .trans-badge{display:inline-block;background:#0a1a2a;border:1px solid #2a5a8a;color:#7ab8e8;font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.12em;padding:.3rem .6rem;text-transform:uppercase;}
 .trans-active{background:rgba(122,184,232,.07);border-left:3px solid #2a5a8a;padding:.5rem .7rem;margin-bottom:.6rem;font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.08em;color:#7ab8e8;text-transform:uppercase;}
 
+/* ══════ Panneau Game Masters — présentation épurée ══════ */
+.c-note{font-size:.7rem;line-height:1.6;color:var(--fog);background:#0c0c0c;border:1px solid #1e1e1e;padding:.7rem .9rem;margin-bottom:.4rem;}
+.c-note strong{color:var(--aged);}
+.c-section{font-family:'Oswald',sans-serif;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(184,146,42,.22);padding-bottom:5px;margin:1.4rem 0 .7rem;}
+.ak-table{width:100%;border-collapse:collapse;font-size:.74rem;}
+.ak-table td{padding:6px 7px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;}
+.ak-table td:first-child{color:var(--fog);font-family:'Oswald',sans-serif;font-size:.62rem;letter-spacing:.04em;}
+.ak-table td:last-child{color:var(--gold);font-family:'Oswald',sans-serif;letter-spacing:.04em;}
+.ak-note{display:block;color:#666;font-family:Georgia,serif;font-style:italic;font-size:.66rem;letter-spacing:0;margin-top:.15rem;}
+.c-team{padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.c-thead{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+.c-tname{font-family:'Oswald',sans-serif;font-size:.78rem;letter-spacing:.06em;}
+.c-tnext{margin-left:auto;font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.08em;padding:.2rem .5rem;border:1px solid #333;color:var(--fog);}
+.c-tnext.go{border-color:rgba(184,146,42,.5);color:var(--gold);}
+.c-tnext.done-all{border-color:rgba(45,110,78,.6);color:var(--ok);}
+.c-tstat{font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.05em;color:var(--fog);margin:.35rem 0 .4rem;}
+.c-dots{display:flex;gap:5px;margin:.3rem 0 .5rem;}
+.c-dot{width:22px;height:22px;font-family:'Oswald',sans-serif;font-size:.56rem;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.18);color:var(--fog);}
+.c-dot.done{background:var(--gold);color:var(--ink);border-color:var(--gold);}
+.c-dot.cur{border-color:var(--gold);color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold);}
+.c-codes{display:flex;gap:6px;flex-wrap:wrap;}
+.c-code{display:flex;align-items:center;gap:.35rem;background:#111;border:1px solid #242424;padding:.3rem .5rem;font-family:'Oswald',sans-serif;font-size:.58rem;letter-spacing:.04em;color:var(--fog);}
+.c-code b{color:var(--gold);font-weight:600;letter-spacing:.06em;font-size:.74rem;}
+.c-gen{background:var(--blood);border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:.5rem;letter-spacing:.08em;padding:.15rem .4rem;cursor:pointer;}
+.c-chrono{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:.4rem;}
+.c-chrono-lbl{font-family:'Oswald',sans-serif;font-size:.5rem;letter-spacing:.15em;color:#666;text-transform:uppercase;margin-right:.1rem;}
+.c-chip{font-family:'Oswald',sans-serif;font-size:.55rem;letter-spacing:.04em;padding:.28rem .45rem;border:1px solid #222;}
+.c-culprit{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.05em;color:var(--aged);padding:.9rem;background:rgba(122,21,21,.16);border:1px solid var(--blood);line-height:1.8;}
+.c-culprit b{color:var(--gold);font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:.02em;}
+.c-ctrl{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.3rem;align-items:center;}
+.c-ctrl .hint{font-size:.62rem;color:var(--fog);font-style:italic;line-height:1.5;}
+.btn-ghost{font-family:'Oswald',sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem .9rem;border:1px solid rgba(184,146,42,.4);background:transparent;color:var(--parch);cursor:pointer;-webkit-appearance:none;border-radius:0;}
+.btn-ghost:active{background:rgba(255,255,255,.05);}
+.btn-warn{font-family:'Oswald',sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem .9rem;border:1px solid rgba(168,32,32,.5);background:transparent;color:#c0504a;cursor:pointer;-webkit-appearance:none;border-radius:0;}
+
+/* ══════ Écran de victoire — CASE CLOSED (style LCC) ══════ */
+#victoryScreen{text-align:center;padding:2rem 1.1rem 3rem;animation:victoryFade 1.2s ease;}
+@keyframes victoryFade{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.victory-crest{font-size:4rem;line-height:1;color:var(--gold);animation:crestPulse 2.4s ease-in-out infinite;}
+@keyframes crestPulse{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.12);opacity:1;}}
+.victory-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,8vw,2.6rem);color:#dcc070;letter-spacing:.06em;margin:.5rem 0 .25rem;}
+.victory-sub{font-family:'Oswald',sans-serif;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#a8443f;margin-bottom:1.4rem;}
+.victory-verdict{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--parch);margin-bottom:1.1rem;}
+.victory-verdict b{color:#dcc070;letter-spacing:.04em;}
+.victory-body{font-family:'Playfair Display',serif;font-size:.92rem;line-height:1.7;color:var(--parch);max-width:480px;margin:0 auto 1.2rem;text-align:left;}
+.victory-body p{margin-bottom:.7rem;}
+.victory-body em{font-style:italic;color:var(--aged);}
+.victory-congrats{font-family:'Oswald',sans-serif;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:1.2rem auto;}
+.victory-foot{font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;line-height:1.6;color:var(--fog);max-width:440px;margin:0 auto;}
+
 </style>
 </head>
 <body>
@@ -613,6 +663,7 @@ body::after{content:'';position:fixed;inset:0;opacity:.4;background-image:url("d
       </div>
       <div class="frame-body">
         <div class="finale-wrap">
+          <div id="finalePreAccuse">
           <div class="ftitle">⚖ Verdict</div>
           <div class="fsub">Qui a tué Lord Blackwood ? / Who killed Lord Blackwood?</div>
           <div class="finale-journal">
@@ -631,7 +682,9 @@ body::after{content:'';position:fixed;inset:0;opacity:.4;background-image:url("d
             </div>
             <button class="accbtn" id="accbtn" disabled onclick="accuse()">⚖ Prononcer l'accusation / Make your accusation</button>
           </div>
+          </div><!-- /finalePreAccuse -->
           <div id="reveal"></div>
+          <div id="victoryScreen" style="display:none;"></div>
         </div>
       </div>
     </div>
@@ -662,46 +715,34 @@ body::after{content:'';position:fixed;inset:0;opacity:.4;background-image:url("d
         </div>
       </div>
       <div class="frame-body">
-        <div class="coord-note" id="coordNote">
-          <strong>Comment utiliser ce tableau :</strong> Quand une équipe revient au hub, regardez la ligne correspondante. Le badge coloré à droite indique la prochaine balise. Validez leur réponse (voir clés ci-dessous), puis envoyez-les.
-        </div>
-        <div style="margin:.8rem 0;padding:.7rem .9rem;background:#0a0a0a;border:1px dashed #3a3a3a;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.2em;color:var(--fog);text-transform:uppercase;">Mode test</div>
-          <button id="testModeBtn" onclick="toggleTestMode()" style="background:#444;border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.18em;padding:.4rem 1rem;cursor:pointer;text-transform:uppercase;">🔓 MODE TEST : OFF</button>
-          <span style="font-size:.65rem;color:var(--fog);font-style:italic;">Ouvre toutes les balises sans code. Utile pour répéter / présenter le jeu.</span>
-        </div>
-        <div style="margin:.8rem 0;padding:.7rem .9rem;background:#0a0a0a;border:1px dashed #3a1a1a;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <div style="font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.2em;color:var(--blood);text-transform:uppercase;">Sauvegarde</div>
-          <button onclick="resetState()" style="background:var(--blood);border:none;color:#fff;font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:.18em;padding:.4rem 1rem;cursor:pointer;text-transform:uppercase;">🗑 Réinitialiser ce téléphone</button>
-          <span style="font-size:.65rem;color:var(--fog);font-style:italic;">Efface la progression sauvegardée sur CE téléphone. À faire avant le jour J, ou en cas de pépin.</span>
-        </div>
-        <div class="dispatch-title" id="dispatchTitle">TABLEAU DE DISPATCH — État des équipes</div>
+        <div class="c-note" id="coordNote"><strong>Comment utiliser ce tableau :</strong> quand une équipe revient au hub, regardez sa ligne. Le badge à droite indique sa prochaine balise. Validez sa réponse (voir la clé ci-dessous), puis envoyez-la.</div>
+
+        <div class="c-section" id="dispatchTitle">Tableau de dispatch — état des équipes</div>
         <div id="teamRows"></div>
-        <div class="key-section">
-          <div class="key-title">🔑 CLÉ DES RÉPONSES — Réservé professeur</div>
-          <div class="key-grid" id="keyGrid"></div>
+
+        <div class="c-section">Clé des réponses — réservé professeur</div>
+        <div id="keyGrid"></div>
+
+        <div class="c-section">Codes communs</div>
+        <table class="ak-table">
+          <tr><td>Code de départ · balise 1</td><td>1888<span class="ak-note">À communiquer oralement à toutes les équipes au départ.</span></td></tr>
+          <tr><td>Code hub final</td><td>2026<span class="ak-note">Date de résolution de l'enquête, à donner à toutes les équipes en même temps.</span></td></tr>
+          <tr><td>Mot de déblocage final (hub)</td><td>CRIMEHUNTERS</td></tr>
+        </table>
+
+        <div class="c-section">⚖ Coupable</div>
+        <div class="c-culprit">
+          <b>Dr. Edmund Vane</b>, médecin personnel de Blackwood.<br>
+          Motif : dettes de jeu · Moyen : laudanum dans le cognac · Preuve : flacon + alibi effondré.
         </div>
-        <div style="margin-top:1.2rem;">
-          <div class="key-title">🔑 CODE DE DÉPART — balise 1, commun à toutes les équipes</div>
-          <div style="background:#100c04;border:1px solid #2a1f0a;padding:.8rem 1rem;display:flex;align-items:center;gap:1rem;margin-bottom:.5rem;">
-            <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);letter-spacing:.3em;min-width:80px;">1888</div>
-            <span style="font-size:.7rem;color:var(--fog);">À communiquer oralement à toutes les équipes au départ</span>
-          </div>
+
+        <div class="c-section">Contrôles</div>
+        <div class="c-ctrl">
+          <button id="testModeBtn" class="btn-ghost" onclick="toggleTestMode()">🔓 MODE TEST : OFF</button>
+          <button class="btn-warn" onclick="resetState()">🗑 Réinitialiser ce téléphone</button>
         </div>
-        <div style="margin-top:1.2rem;">
-          <div class="key-title">🔑 CODE HUB FINAL — commun à toutes les équipes</div>
-          <div style="background:#0a140c;border:1px solid #1e2e1e;padding:.8rem 1rem;display:flex;align-items:center;gap:1rem;margin-bottom:.5rem;">
-            <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);letter-spacing:.3em;min-width:80px;">2026</div>
-            <span style="font-size:.7rem;color:var(--fog);">Date de résolution de l'enquête, à communiquer à toutes les équipes en même temps</span>
-          </div>
-        </div>
-        <div style="margin-top:1.2rem;">
-          <div class="key-title">⚖ COUPABLE</div>
-          <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:.9rem;font-size:.78rem;line-height:1.8;color:var(--aged);">
-            <strong style="color:var(--gold);font-family:'Playfair Display',serif;font-size:.95rem;">Dr. Edmund Vane</strong>, médecin personnel de Blackwood.<br>
-            Motif : dettes de jeu · Moyen : Laudanum dans le cognac · Preuve : flacon + alibi effondré<br>
-            <span style="color:#555;font-size:.65rem;font-style:italic;">Code de déblocage final (hub) : CRIMEHUNTERS</span>
-          </div>
+        <div class="c-ctrl" style="margin-top:.45rem;">
+          <span class="hint"><strong style="color:var(--aged);font-style:normal;">Mode test</strong> : ouvre toutes les balises sans code (répétition / présentation). — <strong style="color:var(--aged);font-style:normal;">Réinitialiser</strong> : efface la progression de CE téléphone, à faire avant le jour J ou en cas de pépin.</span>
         </div>
       </div>
     </div>
@@ -1197,6 +1238,10 @@ function openFinale() {
   if (accbtn) accbtn.disabled = !S.suspect;
   var reveal = document.getElementById('reveal');
   if (reveal) { reveal.style.display = 'none'; reveal.innerHTML = ''; }
+  var pre = document.getElementById('finalePreAccuse');
+  if (pre) pre.style.display = '';
+  var vic = document.getElementById('victoryScreen');
+  if (vic) { vic.style.display = 'none'; vic.innerHTML = ''; }
   showFrame(`finaleView`);
 }
 
@@ -1935,32 +1980,38 @@ function toggleFinaleLang(lang) {
 function accuse() {
   var ok = S.suspect === "Dr. Edmund Vane";
   var rev = document.getElementById("reveal");
-  rev.className = ok ? "rev-ok" : "rev-ko";
-  rev.style.display = "block";
+  var pre = document.getElementById("finalePreAccuse");
+  var vic = document.getElementById("victoryScreen");
 
-  var enContent, frContent;
   if (ok) {
-    var fr_txt = "<p>Le <strong>Dr. Edmund Vane</strong>, médecin personnel de Lord Blackwood, est bien le coupable. Au fil des années, les deux hommes s'étaient liés d'amitié. Endetté après de mauvaises spéculations, Vane avait sollicité son ami pour un prêt, une somme importante, qu'il se trouvait dans les pires difficultés à rembourser.</p>"
-      + "<p>Après avoir patienté longtemps, Lord Blackwood s'était finalement résolu à traîner son vieil ami en justice. Il s'en était même ouvert à un journaliste qui enquêtait sur la banqueroute du docteur, l'une des grandes figures de Londres.</p>"
-      + "<p>En lisant l'article du <em>London Herald</em>, Vane comprit qu'il allait devoir rembourser, ou tout perdre en place publique. Il choisit alors une solution radicale : froidement, il prépara son geste, puis versa une forte dose de laudanum dans le cognac de son patient lors d'une soirée au club.</p>"
-      + "<p>Peu de temps après le décès de Lord Blackwood, il fut d'ailleurs prouvé que le chien de Lady Victoria était mort de vieillesse : Miss Cross ne l'avait jamais empoisonné.</p>";
-    var en_txt = "<p><strong>Dr. Edmund Vane</strong>, Lord Blackwood's personal physician, is indeed the culprit. Over the years, the two men had become friends. Ruined by bad speculation, Vane had asked his friend for a loan, a considerable sum, which he then found himself quite unable to repay.</p>"
+    // ── Bonne accusation : écran CASE CLOSED animé (anglais, façon LCC) ──
+    var en_story = "<p><strong>Dr. Edmund Vane</strong>, Lord Blackwood's personal physician, is indeed the culprit. Over the years, the two men had become friends. Ruined by bad speculation, Vane had asked his friend for a loan, a considerable sum, which he then found himself quite unable to repay.</p>"
       + "<p>After waiting a long time, Lord Blackwood had finally resolved to take his old friend to court. He had even confided as much to a journalist investigating the bankruptcy of the doctor, one of London's great figures.</p>"
       + "<p>Reading the <em>London Herald</em> article, Vane understood he would have to repay, or lose everything in public. He chose a radical solution: coldly, he laid his plans, then poured a heavy dose of laudanum into his patient's cognac during an evening at the club.</p>"
       + "<p>Shortly after Lord Blackwood's death, it was also proven that Lady Victoria's dog had died of old age: Miss Cross had never poisoned it.</p>";
-    enContent = "<h3>✓ <em>Correct accusation!</em></h3>" + en_txt
-      + "<p><strong>🏆 Congratulations, inspectors from Camille Sée!</strong></p>"
-      + "<p style=\"font-style:italic;\">Thanks to you, a case left open since 1888 has finally been solved. Scotland Yard is already considering a reward worthy of the standard of your investigation.</p>";
-    frContent = "<h3>✓ <em>Accusation correcte !</em></h3>" + fr_txt
-      + "<p><strong>🏆 Félicitations, inspecteurs de Camille Sée !</strong></p>"
-      + "<p style=\"font-style:italic;\">Grâce à vous, une affaire restée ouverte depuis 1888 vient enfin d'être résolue. Scotland Yard réfléchit déjà à une récompense digne du niveau de votre enquête.</p>";
-  } else {
-    enContent = "<h3>✗ <em>Wrong lead…</em></h3>"
-      + "<p><strong>" + S.suspect + "</strong> is not the culprit. Re-read your evidence. All clues pointed to <strong>Dr. Edmund Vane</strong>.</p>";
-    frContent = "<h3>✗ <em>Mauvaise piste…</em></h3>"
-      + "<p><strong>" + S.suspect + "</strong> n'est pas le coupable. Relisez vos preuves. Tous les indices pointaient vers <strong>Dr. Edmund Vane</strong>.</p>";
+    vic.innerHTML =
+        '<div class="victory-crest">⚖</div>'
+      + '<div class="victory-title">CASE CLOSED</div>'
+      + '<div class="victory-sub">Metropolitan Police · Scotland Yard</div>'
+      + '<div class="victory-verdict">The killer is <b>DR. EDMUND VANE</b>.</div>'
+      + '<div class="victory-body">' + en_story + '</div>'
+      + '<div class="victory-congrats">🏆 Congratulations, inspectors from Camille Sée!</div>'
+      + '<div class="victory-foot">Thanks to you, a case left open since 1888 has finally been solved. Scotland Yard is already considering a reward worthy of the standard of your investigation.</div>';
+    if (pre) pre.style.display = "none";
+    if (rev) { rev.style.display = "none"; rev.innerHTML = ""; }
+    vic.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
   }
 
+  // ── Mauvaise accusation : parchemin bilingue, comportement inchangé ──
+  if (vic) { vic.style.display = "none"; vic.innerHTML = ""; }
+  rev.className = "rev-ko";
+  rev.style.display = "block";
+  var enContent = "<h3>✗ <em>Wrong lead…</em></h3>"
+    + "<p><strong>" + S.suspect + "</strong> is not the culprit. Re-read your evidence. All clues pointed to <strong>Dr. Edmund Vane</strong>.</p>";
+  var frContent = "<h3>✗ <em>Mauvaise piste…</em></h3>"
+    + "<p><strong>" + S.suspect + "</strong> n'est pas le coupable. Relisez vos preuves. Tous les indices pointaient vers <strong>Dr. Edmund Vane</strong>.</p>";
   rev.innerHTML = '<div class="mission-lang" id="revealLangBar">'
       + '<button id="revealLang_en" onclick="toggleFinaleLang(\'en\')">English</button>'
       + '<button id="revealLang_fr" onclick="toggleFinaleLang(\'fr\')">Français</button>'
@@ -2057,8 +2108,8 @@ function buildTeamRows() {
     const done = Math.min(solved.length, 4);
     const allBranchDone = done === 4;
     const fullyDone = allBranchDone && hubSolved;
-    let nextDest = "", badgeClass = "waiting";
-    if (fullyDone) { nextDest = "✓ Terminé / Done"; badgeClass = "done-all"; }
+    let nextDest = "", badgeClass = "go";
+    if (fullyDone) { nextDest = "✓ Terminé"; badgeClass = "done-all"; }
     else if (allBranchDone) { nextDest = "→ Hub : verdict final"; badgeClass = "go"; }
     else { const nc = CLUES[route[done]]; nextDest = "→ " + nc.loc_en.replace("📍 ","").split(" — ")[0]; badgeClass = "go"; }
     let dots = "";
@@ -2066,18 +2117,16 @@ function buildTeamRows() {
       const clueId = CLUES[route[i]].id;
       const isDone = tSolved.includes(clueId);
       const isCur = !isDone && tSolved.filter(id=>id!=="hub").length===i;
-      dots += '<div class="dot' + (isDone?" done":isCur?" cur":"") + '"></div>';
+      dots += '<div class="c-dot' + (isDone?" done":isCur?" cur":"") + '">'+(i+1)+'</div>';
     }
-    dots += '<div class="dot' + (hubSolved?" done":allBranchDone?" cur":"") + '"></div>';
+    dots += '<div class="c-dot' + (hubSolved?" done":allBranchDone?" cur":"") + '" title="Hub">★</div>';
 
     let codesHtml = "";
     for (let si=1; si<=3; si++) {
       const stopKey = "g"+g+"_"+si;
       const code = tCodes[stopKey] || "";
-      const stopName = "Balise "+(si+1);
-      const codeDisp = code ? '<strong style="color:var(--gold);font-size:.8rem;">'+code+"</strong>" : "—";
-      const codeColor = code ? "var(--gold)" : "#333";
-      codesHtml += '<div style="background:#111;border:1px solid #222;padding:.35rem .5rem;font-family:Oswald,sans-serif;font-size:.58rem;color:'+codeColor+'">'+stopName+": "+codeDisp+' <button onclick="genCode('+g+','+si+')" style="margin-left:.35rem;background:var(--blood);border:none;color:#fff;font-size:.52rem;padding:.12rem .35rem;cursor:pointer;">GEN</button></div>';
+      const codeDisp = code ? "<b>"+code+"</b>" : '<span style="color:#444;">—</span>';
+      codesHtml += '<span class="c-code">B'+(si+1)+': '+codeDisp+'<button class="c-gen" onclick="genCode('+g+','+si+')">GEN</button></span>';
     }
 
     // ── Statut chrono par balise (0 à 3) ──
@@ -2087,36 +2136,31 @@ function buildTeamRows() {
       const st = tStatus[skey] || null;
       const t = tTimers[skey];
       let label = "B"+(si+1)+" ";
-      let bg = "#1a1a1a", col = "#555", txt = "—";
+      let bg = "#161616", col = "#555", txt = "—";
       if (st === "solved") { bg = "#0a2a12"; col = "var(--ok)"; txt = "✓"; }
       else if (st === "failed") { bg = "#2a0a0a"; col = "var(--blood)"; txt = "✗ ratée"; }
       else if (st === "active" && t && t.started) {
         const rem = Math.floor((t.endTime - Date.now())/1000);
         bg = "#1a1208"; col = "var(--gold)"; txt = fmtTime(rem);
       }
-      chronoHtml += '<div style="background:'+bg+';border:1px solid #222;padding:.3rem .45rem;font-family:Oswald,sans-serif;font-size:.55rem;color:'+col+';letter-spacing:.05em;">'+label+txt+'</div>';
+      chronoHtml += '<span class="c-chip" style="background:'+bg+';color:'+col+';">'+label+txt+'</span>';
     }
     const bankSec = tBank["g"+g] || 0;
     const bankHtml = bankSec > 0
-      ? '<div style="background:#0a2a12;border:1px solid #1d5a2a;padding:.3rem .45rem;font-family:Oswald,sans-serif;font-size:.55rem;color:var(--ok);">+'+fmtTime(bankSec)+' réserve</div>'
+      ? '<span class="c-chip" style="background:#0a2a12;color:var(--ok);border-color:#1d5a2a;">+'+fmtTime(bankSec)+' réserve</span>'
       : '';
 
     const row = document.createElement("div");
-    row.innerHTML = '<div class="team-row">'+
-      '<div class="team-color" style="background:'+color+'"></div>'+
-      "<div>"+
-        '<div class="team-name" style="color:'+color+'">'+name+"</div>"+
-        '<div class="team-status">'+done+'/4 balises · '+( fullyDone?"Complet":"En cours")
-          + (td.transUsed ? ' · 🇫🇷 joker utilisé' : '')
-          + "</div>"+
-        '<div class="team-progress">'+dots+"</div>"+
-      "</div>"+
-      '<div class="next-badge '+badgeClass+'">'+nextDest+"</div>"+
-      "</div>"+
-      '<div style="padding:.35rem .9rem .35rem 2.6rem;display:flex;gap:.35rem;flex-wrap:wrap;background:var(--char);border:1px solid #222;border-top:none;">'+codesHtml+"</div>"+
-      '<div style="padding:.35rem .9rem .7rem 2.6rem;display:flex;gap:.35rem;flex-wrap:wrap;background:var(--char);border:1px solid #222;border-top:none;margin-bottom:.5rem;align-items:center;">'+
-        '<span style="font-family:Oswald,sans-serif;font-size:.5rem;letter-spacing:.15em;color:#666;text-transform:uppercase;margin-right:.2rem;">Chrono</span>'+
-        chronoHtml + bankHtml + "</div>";
+    row.className = "c-team";
+    row.innerHTML =
+      '<div class="c-thead">'+
+        '<span class="c-tname" style="color:'+color+'">'+name+'</span>'+
+        '<span class="c-tnext '+badgeClass+'">'+nextDest+'</span>'+
+      '</div>'+
+      '<div class="c-tstat">'+done+'/4 balises · '+(fullyDone?"Complet":"En cours")+(td.transUsed?' · 🇫🇷 joker utilisé':'')+'</div>'+
+      '<div class="c-dots">'+dots+'</div>'+
+      '<div class="c-codes">'+codesHtml+'</div>'+
+      '<div class="c-chrono"><span class="c-chrono-lbl">Chrono</span>'+chronoHtml+bankHtml+'</div>';
     wrap.appendChild(row);
   }
 }
@@ -2124,12 +2168,12 @@ function buildTeamRows() {
 function buildKeyGrid() {
   const grid = document.getElementById("keyGrid");
   const allClues = [...Object.values(CLUES), HUB_CLUE];
-  let html = "";
+  let rows = "";
   allClues.forEach(function(cl) {
     const loc = cl.loc_en.replace("📍 ","").split(" — ")[0];
-    html += '<div class="key-card"><div class="key-loc">'+loc+'</div><div class="key-ans">'+cl.answer+'</div><div class="key-note">'+cl.key_note+"</div></div>";
+    rows += '<tr><td>'+loc+'</td><td>'+cl.answer+(cl.key_note?'<span class="ak-note">'+cl.key_note+'</span>':'')+'</td></tr>';
   });
-  grid.innerHTML = html;
+  grid.innerHTML = '<table class="ak-table">'+rows+'</table>';
 }
 
 // Init — charge la sauvegarde si elle existe, sinon démarre normalement
